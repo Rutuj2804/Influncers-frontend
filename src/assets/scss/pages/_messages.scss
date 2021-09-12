@@ -1,0 +1,248 @@
+.message__ContactDiv{
+    position: relative;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    .message__InboxTitle{
+        background-color: $white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        h4{
+            margin: 0;
+        }
+    }
+    .message__Contacts{
+        height: inherit;
+        overflow-y: scroll;
+        &::-webkit-scrollbar{
+            width: 5px;
+        }
+        &::-webkit-scrollbar-thumb{
+            background: $secondary;
+            border-radius: 5px;
+        }
+    }
+}
+.message__ConversationDiv{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 100px);
+    .message__UserHeader{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $white;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        .message__User{
+            display: flex;
+            align-items: center;
+            .message__UserDetails{
+                margin-left: 10px;
+                h6{
+                    margin: 0;
+                    font-size: 14px;
+                }
+                p{
+                    margin: 0;
+                    font-size: 12px;
+                    color: #ccc;
+                    display: flex;
+                    align-items: center;
+                    div{
+                        margin-left: 10px;
+                        height: 10px;
+                        width: 10px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+        .message__Options{
+            position: relative;
+            ul{
+                display: none;
+                list-style: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 200px;
+                z-index: 3;
+                background-color: #fafafa;
+                box-shadow: 2px 2px 5px #efefef,-2px -2px 5px #efefef;
+                padding: 0;
+                border-radius: 5px;
+                li{
+                    padding: 10px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    position: relative;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    p{
+                        margin: 0%;
+                        margin-left: 7px;
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+                    &:hover{
+                        background-color: #efefef;
+                        color: $secondary;
+                    }
+                    &:hover::before{
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 5px;
+                        background-color: $secondary;
+                        border-top-right-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                    }
+                    &:hover::after{
+                        content: '';
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        height: 100%;
+                        width: 5px;
+                        background-color: $secondary;
+                        border-top-left-radius: 5px;
+                        border-bottom-left-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+    .message__Conversation{
+        height: calc(100vh - 200px);
+        background-color: $white;
+        overflow-y: scroll;
+        margin-bottom: 10px;
+        padding: 10px;
+        &::-webkit-scrollbar{
+            width: 5px;
+        }
+        &::-webkit-scrollbar-thumb{
+            background: $secondary;
+            border-radius: 5px;
+        }
+    }
+    .message__SendMessage{
+        background-color: $white;
+        border-radius: 5px;
+        form{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            .messages__SendMessageInputDiv{
+                padding: 10px;
+                flex: 1;
+                cursor: pointer;
+                input{
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    padding: 0 10px;
+                }
+            }
+            button{
+                background-color: $secondary;
+                color: $white;
+                font-size: 14px;
+                margin-right: 3px;
+            }
+        }
+    }
+}
+
+.message__RightProfileDiv{
+    text-align: center;
+    background-color: $white;
+    padding: 20px 10px;
+    height: calc(100vh - 100px);
+    width: 100%;
+    border-radius: 5px;
+    img {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        border: 2px solid #efefef;
+        margin-bottom: 20px;
+    }
+    h6{
+        font-size: 18px;
+    }
+    p{
+        font-size: 14px;
+        color: #707070;
+        margin-bottom: 0%;
+    }
+    .message__SkillTag{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        span{
+            font-weight: 600;
+            background-color: #efefef;
+            padding: 3px 5px;
+            font-size: 14px;
+            margin: 0 5px;
+        }
+    }
+    .message__ProfileSpecifications{
+        .message__Performance{
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            div{
+                margin: 0 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                p{
+                    font-size: 24px;
+                    font-weight: 600;
+                }
+                span{
+                    font-size: 12px;
+                    color: #707070;
+                }
+            }
+        }
+        .message__RankOfUser{
+            margin: 0%;
+            .MuiSvgIcon-root{
+                fill: $secondary;
+            }
+            p{
+                font-size: 20px;
+                font-weight: 600;
+            }
+        }
+        .message__ViewProfileButton{
+            margin-top: 20px;
+            padding: 0 30px;
+            button{
+                width: 100%;
+                background-color: $secondary;
+                color: $white;
+            }
+        }
+        .message__SocialMediaLinks{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            margin-top: 20px;
+            div{
+                cursor: pointer;
+            }
+        }
+    } 
+}

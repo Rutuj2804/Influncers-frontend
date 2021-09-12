@@ -1,0 +1,31 @@
+.home__FilterContainer{
+    position: sticky;
+    top: 20px;
+    left: inherit;
+    .home__ProjectType{
+        width: 100%;
+    }
+    .home__Slider{
+        p{
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+    .home__CheckBoxOptions{
+        .home__CheckBoxDiv{
+            label, span{
+                font-size: 14px!important;
+                font-weight: 500;
+            }
+        }
+    }
+    .home__CheckBoxApply{
+        margin: 20px;
+        text-align: center;
+        button{
+            background-color: $secondary!important;
+            font-size: 14px;
+            color: $white;
+        }
+    }
+}

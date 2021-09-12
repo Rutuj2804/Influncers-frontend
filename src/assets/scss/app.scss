@@ -1,0 +1,60 @@
+// fonts
+@import "./fonts/fonts";
+
+// variables
+@import "variables";
+
+// layout
+@import "./customs/layout";
+
+// pages
+@import "./pages/auth";
+@import "./pages/dashboard";
+@import "./pages/extras";
+@import "./pages/stats";
+@import "./pages/messages";
+@import "./pages/home";
+@import "./pages/find_people";
+@import "./pages/profile";
+@import "./pages/listing_detail_view";
+@import "./pages/settings";
+@import "./pages/edit-profile";
+
+// components
+@import "./components/sidebar";
+@import "./components/navbar";
+@import "./components/listing";
+@import "./components/tags";
+@import "./components/campaign";
+@import "./components/input";
+@import "./components/notification";
+@import "./components/profile_navigation";
+@import "./components/paper";
+@import "./components/contact_element";
+@import "./components/message_element";
+@import "./components/q-and-a_element";
+@import "./components/notification_element";
+@import "./components/profile_card";
+@import "./components/rank_profile";
+@import "./components/add_component";
+@import "./components/add_collaboration";
+
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body{
+    background-color: $light;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &::-webkit-scrollbar{
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: $secondary-light;
+        border-radius: 5px;
+    }
+}

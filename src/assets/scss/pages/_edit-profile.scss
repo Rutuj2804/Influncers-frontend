@@ -1,0 +1,85 @@
+.editProfile__InputDiv{
+    position: relative;
+    margin-bottom: 20px;
+    textarea{
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+        width: 100%;
+        padding: 5px 45px;
+        font-size: 16px;
+        height: 70px;
+        // resize: none;
+    }
+    label{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+    }
+}
+.editProfile__AdditionInputDiv button{
+    background-color: $secondary!important;
+    color: $white;;
+}
+.editProfile__LinkWrapper{
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    background-color: $white;
+    justify-content: space-between;
+    a{
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+    }
+    h6{
+        margin: 0;
+        margin-left: 10px;
+        text-transform: capitalize;
+    }
+}
+.editProfile__SkillWrapper{
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: $white;
+    // justify-content: space-between;
+    div{
+        display: flex;
+        align-items: center;
+        background-color: #efefef;
+        padding: 5px;
+        border-radius: 10px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+    }
+    p{
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
+
+.editProfile__LinkFormDiv{
+    margin-top: 20px;
+}
+.editProfile__ButtonGroup{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    button{
+        background-color: $secondary!important;
+        color: $white;
+        margin-left: 10px;
+    }
+}

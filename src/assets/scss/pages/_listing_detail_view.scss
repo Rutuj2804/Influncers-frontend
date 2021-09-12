@@ -1,0 +1,142 @@
+.listingDetailPage__Wrapper{
+    text-transform: capitalize;
+    .listingDetailPage__Header{
+        padding-top: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .listingDetailPage__HeaderLeft{
+            display: flex;
+            align-items: center;
+            img{
+                height: 100px;
+                width: 100px;
+                border-radius: 5px;
+            }
+            .listingDetailPage__Company{
+                margin-left: 10px;
+                h4{
+                    letter-spacing: 1px;
+                }
+                p{
+                    margin: 0%;
+                    font-size: 14px;
+                    color: #707070;
+                }
+            }
+        }
+        .listingDetailPage__HeaderRight{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            .listingDetailPage__Rate{
+                display: flex;
+                align-items: center;
+                margin: 5px 0;
+                p{
+                    margin: 0%;
+                    font-size: 14px;
+                    color: #707070;
+                }
+                span{
+                    font-size: 28px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+    .listingDetailPage__MiddlePart{
+        margin-top: 20px;
+        .listingDetailPage__Tags{
+            display: flex;
+            align-items: center;
+            p{
+                padding: 5px 15px;
+                background-color: #efefef;
+                margin-right: 10px;
+                border-radius: 5px;
+            }
+        }
+        .listingDetailPage__Conditions{
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            .listingDetailPage__SkillsIcon{
+                margin-right: 20px;
+            }
+            .listingDetailPage__SkillBlock{
+                display: flex;
+                align-items: center;
+                .listingDetailPage__Dividation{
+                    display: flex;
+                    margin: 0 10px;
+                    align-items: center;
+                    flex-direction: column;
+                    padding: 5px 10px;
+                    p{
+                        margin: 0;
+                        font-size: 12px;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+    .listingDetailPage__Footer{
+        margin: 20px 0;
+        .listingDetailPage__Overview{
+            margin-right: 20px;
+        }
+        .listingDetailPage__Description{
+            margin-top: 20px;
+            ul{
+                list-style: none;
+                padding: 0%;
+                li{
+                    display: flex;
+                    align-items: center;
+                    margin: 10px 0;
+                    .MuiSvgIcon-root{
+                        fill: $green;
+                    }
+                    p{
+                        margin: 0%;
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+        .listingDetailPage__Rewards{
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            background-color: $white;
+            padding: 10px;
+            border-radius: 5px;
+            h4{
+                width: 100%;
+            }
+            div{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                p{
+                    padding: 5px 15px;
+                    background-color: #efefef;
+                    margin-right: 10px;
+                    margin-bottom: 0%;
+                    border-radius: 5px;
+                }
+            }
+        }
+        .listingDetailPage__Apply{
+            margin: 50px 0;
+            button{
+                padding: 5px 50px;
+                background-color: $secondary;
+                color: $white;
+                margin-bottom: 30px;
+            }
+        }
+    }
+}

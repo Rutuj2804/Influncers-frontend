@@ -1,0 +1,48 @@
+.notification__Wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 350px;
+    padding: 10px 20px;
+    cursor: pointer;
+    &:hover::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 5px;
+        background-color: $secondary;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    .notification__Left{
+        display: flex;
+        align-items: center;
+        .notification__UserDetail{
+            display: flex;
+            flex-direction: column;
+            margin-left: 5px;
+            p{
+                margin: 0%;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            span{
+                font-size: 12px;
+            }
+        }
+    }
+    .notification__Right{
+        p{
+            margin: 0%;
+            font-size: 12px;
+            font-weight: 400;
+            color: #707070;
+        }
+    }
+}
+.notification__OpenPage{
+    width: 350px;
+}

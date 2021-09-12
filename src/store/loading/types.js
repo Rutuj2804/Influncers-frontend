@@ -1,0 +1,2 @@
+export const LOADING_STARTS = 'LOADING_STARTS'
+export const LOADING_STOPS = 'LOADING_STOPS'

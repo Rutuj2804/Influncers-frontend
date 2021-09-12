@@ -1,0 +1,28 @@
+.profileNavigation__Wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+    padding: 10px 15px;
+    cursor: pointer;
+    &:hover{
+        background-color: #fafafa;
+        .profileNavigation__Left p{
+            color: $secondary;
+            font-weight: 700;
+        }
+        .MuiSvgIcon-root {
+            fill: $secondary;
+        }
+    }
+    .profileNavigation__Left{
+        display: flex;
+        align-items: center;
+        p{
+            margin: 0%;
+            font-weight: 600;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+    }
+}

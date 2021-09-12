@@ -1,0 +1,97 @@
+.profile__Wrapper{
+    padding-top: 20px;
+    text-transform: capitalize;
+    .profile__Header{
+        display: flex;
+        align-items: center;
+        .profile__HeaderLeft{
+            width: 300px;
+            .profile__Image{
+                img{
+                    // height: 300px;
+                    width: 250px;
+                    height: auto;
+                    min-height: 250px;
+                    border-radius: 50%;
+                    border: 5px solid #efefef;
+                }
+            }
+        }
+        .profile__HeaderRight{
+            flex: 1;
+            .profile__UserBasicDetails{
+                .profile__User{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    h5{
+                        margin: 0%;
+                        font-size: 30px;
+                        font-weight: 600;
+                    }
+                    p{
+                        margin: 0%;
+                        font-size: 14px;
+                        margin-left: 3px;
+                        color: #707070;
+                    }
+                }
+                .profile__Ratings{
+                    display: flex;
+                    align-items: center;
+                    p{
+                        margin: 0%;
+                        font-size: 18px;
+                        margin-right: 10px;
+                        margin-bottom: 3px;
+                    }
+                    fieldset{
+                        margin: 0%;
+                        padding: 0%;
+                        margin-right: 10px;
+                    }
+                    div{
+                        margin: 0%;
+                        padding: 0%;
+                        font-size: 12px;
+                        color: #707070;
+                        margin-bottom: 5px;
+                    }
+                }
+                .profile__SocialMediaHandles{
+                    display: flex;
+                    align-items: center;
+                    div{
+                        margin-right: 10px;
+                        cursor: pointer;
+                        .MuiSvgIcon-root{
+                            fill: #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .profile__Middle{
+        .profile__Skills{
+            .profile__SkillsTag{
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                p{
+                    margin: 0;
+                    background-color: #efefef;
+                    padding: 5px;
+                    margin-bottom: 2px;
+                    margin-right: 3px;
+                    border-radius: 10px;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+            }
+            h6{
+                font-weight: 600;
+            }
+        }
+    }
+}

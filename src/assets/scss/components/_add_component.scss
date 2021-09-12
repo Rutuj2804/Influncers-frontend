@@ -1,0 +1,51 @@
+.addComponent__Wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 350px;
+    padding: 10px 20px;
+    cursor: pointer;
+    &:hover::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 5px;
+        background-color: $secondary;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    &:hover .MuiSvgIcon-root,
+    &:hover .addComponent__Left .addComponent__UserDetail p,
+    &:hover .addComponent__Left .addComponent__UserDetail span {
+        fill: $secondary;
+        color: $secondary;
+    }
+    .addComponent__Left{
+        display: flex;
+        align-items: center;
+        .addComponent__UserDetail{
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            p{
+                margin: 0%;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            span{
+                font-size: 12px;
+            }
+        }
+    }
+    .addComponent__Right{
+        p{
+            margin: 0%;
+            font-size: 12px;
+            font-weight: 400;
+            color: #707070;
+        }
+    }
+}

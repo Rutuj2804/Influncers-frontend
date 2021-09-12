@@ -1,0 +1,45 @@
+.findPeople__SearchForm{
+    display: flex;
+    justify-content: center;
+    form{
+        width: 700px;
+        display: flex;
+        margin-top: 50px;
+        box-shadow: 2px 2px 5px #efefef, -2px -2px 5px #efefef;
+        .findPeople__InputDiv{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background-color: $white;
+            input{
+                padding: 2px 10px;
+                flex: 1;
+                border: none;
+                outline: none;
+            }
+            label{
+                cursor: pointer;
+            }
+        }
+        .findPeople__Select{
+            min-width: 140px;
+            div{
+                outline: none!important;
+                border: none;
+            }
+            span{
+                outline: none!important;
+            }
+            .css-1pahdxg-control, .css-1pahdxg-control:hover{
+                border: none!important;
+                box-shadow: none;
+                outline: none!important;
+            }
+        }
+        button{
+            background-color: $secondary!important;
+            color: $white;
+            font-size: 12px;
+        }
+    }
+}

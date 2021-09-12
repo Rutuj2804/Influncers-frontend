@@ -1,0 +1,93 @@
+.sidebar__Wrapper{
+    background-color: $secondary;
+    width: 230px;
+    height: 100vh;
+    position: fixed;
+    color: $white;
+    z-index: 10;
+    .sidebar__Logo{
+        width: 100%;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+    }
+    .sidebar__Menu{
+        color: #fafafa;
+        ul{
+            padding: 0;
+            padding: 20px 10px;
+            list-style: none;
+            a{
+                color: inherit!important;
+                text-decoration: none;
+            }
+            li{
+                margin: 10px 0;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                padding: 10px 20px;
+                overflow: hidden;
+                position: relative;
+                p{
+                    margin-bottom: 0;
+                    margin-left: 15px;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                &:hover{
+                    background-color: $white;
+                    border-radius: 5px;
+                    transition: 0.2s linear;
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        top: 5px;
+                        left: calc(100% - 3px);
+                        height: calc(100% - 10px);
+                        width: 100%;
+                        background-color: $secondary-light;
+                        border-radius: 5px;
+                    }
+                    .MuiSvgIcon-root{
+                        fill: $secondary!important;
+                    }
+                    p{
+                        font-weight: 900;
+                        color: $secondary!important;
+                    }
+                }
+            }
+        }
+    }
+    .sidebar__Footer{
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+        cursor: pointer;
+    }
+}
+
+.sidebar__NavigationActive li{
+    background-color: $white;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    &::before{
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: calc(100% - 3px);
+        height: calc(100% - 10px);
+        width: 100%;
+        background-color: $secondary-light;
+        border-radius: 5px;
+    }
+    .MuiSvgIcon-root{
+        fill: $secondary!important;
+    }
+    p{
+        font-weight: 900!important;
+        color: $secondary!important;
+    }
+}
