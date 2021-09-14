@@ -2,9 +2,37 @@ import {
     SEND_MESSAGE_SUCCESS,
     SEND_MESSAGE_FAIL,
     FETCH_MESSAGE_SUCCESS,
-    FETCH_MESSAGE_FAIL
+    FETCH_MESSAGE_FAIL,
+    FETCH_CHAT_ROOMS_SUCCESS,
+    FETCH_CHAT_ROOMS_FAIL
 } from "./types"
 import axios from "axios"
+
+export const fetch_rooms = () => async dispatch =>{
+
+    const config = {
+        headers: {
+            "Content-type": "Application/json",
+            "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+    }
+
+    try {
+    
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/chats/get/`, config)
+
+        dispatch({
+            type: FETCH_CHAT_ROOMS_SUCCESS,
+            payload: res.data.room
+        })
+
+    } catch (error) {
+        dispatch({
+            type: FETCH_CHAT_ROOMS_FAIL
+        })
+    }
+    
+}
 
 export const send_message = (message, id) => async dispatch =>{
 

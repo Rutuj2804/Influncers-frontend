@@ -19,6 +19,7 @@
 @import "./pages/listing_detail_view";
 @import "./pages/settings";
 @import "./pages/edit-profile";
+@import "./pages/project-dashboard";
 
 // components
 @import "./components/sidebar";
@@ -38,6 +39,7 @@
 @import "./components/rank_profile";
 @import "./components/add_component";
 @import "./components/add_collaboration";
+@import "./components/radio";
 
 *{
     margin: 0%;

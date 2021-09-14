@@ -1,10 +1,14 @@
 import { Avatar } from '@material-ui/core'
 import image from '../../assets/images/image.jpg'
 import React from 'react'
+import { useHistory } from 'react-router'
 
-const ContactElement = ({ name, status, message, time, online }) => {
+const ContactElement = ({ name, status, message, time, online, roomId }) => {
+
+    const history = useHistory()
+
     return (
-        <div className="contactElement__Wrapper" >
+        <div className="contactElement__Wrapper" onClick={()=>history.push(`/messages/${roomId}`)}>
             <div className="contactElement__Header">
                 <div className="contactElement__Avatar">
                     <Avatar src={image} />

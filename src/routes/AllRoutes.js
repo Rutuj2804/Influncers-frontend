@@ -23,6 +23,7 @@ import Stats from "../pages/stats/Stats"
 
 // Messaging
 import Message from "../pages/messages/Message"
+import MessagesRoom from "../pages/messages/MessagesRoom"
 
 // Settings
 import Settings from "../pages/settings/Settings"
@@ -32,6 +33,7 @@ import FAQs from "../pages/faqs/FAQs"
 
 // Detail Views
 import ListingDetailPage from "../pages/detail-views/ListingDetailPage"
+import ProjectDashboard from "../pages/detail-views/ProjectDashboard"
 
 
 // Authentication
@@ -66,6 +68,7 @@ const userRoutes = [
   
     // Messaging
     { path: "/messages", component: Message },
+    { path: "/messages/:id", component: MessagesRoom },
 
     // Settings
     { path: "/settings", component: Settings },
@@ -75,6 +78,7 @@ const userRoutes = [
     
     // Detail View
     { path: "/listing/:id", component: ListingDetailPage },
+    { path: "/project/:id", component: ProjectDashboard },
 
     // this route should be at the end of all other routes
     { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },

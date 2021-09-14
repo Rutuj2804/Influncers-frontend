@@ -2,11 +2,14 @@ import {
     SEND_MESSAGE_SUCCESS,
     SEND_MESSAGE_FAIL,
     FETCH_MESSAGE_SUCCESS,
-    FETCH_MESSAGE_FAIL
+    FETCH_MESSAGE_FAIL,
+    FETCH_CHAT_ROOMS_SUCCESS,
+    FETCH_CHAT_ROOMS_FAIL
 } from "./types"
   
 const initialState = {
     messages: [],
+    chat_rooms: [],
     error: ""
 }
 
@@ -20,6 +23,11 @@ const messages = (state = initialState, action) => {
                 ...state,
                 messages: { ...messages, payload }
             }
+        case FETCH_CHAT_ROOMS_SUCCESS:
+            return{
+                ...state,
+                chat_rooms: payload
+            }
         case FETCH_MESSAGE_SUCCESS:
             return {
                 ...state,
@@ -31,6 +39,7 @@ const messages = (state = initialState, action) => {
                 error: payload
             }
         case SEND_MESSAGE_FAIL:
+        case FETCH_CHAT_ROOMS_FAIL:
         default:
             return state
     }

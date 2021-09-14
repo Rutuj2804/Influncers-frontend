@@ -1,20 +1,84 @@
 import { Avatar, Button, IconButton } from '@material-ui/core'
 import { BlockRounded, EmojiEventsRounded, Facebook, Instagram, MoreVertRounded, PersonRounded, ReportProblemRounded, SendRounded, YouTube } from '@material-ui/icons'
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
+import { SocketContext } from '../../store/socket/context'
 import ContactElement from './ContactElement'
 import image from '../../assets/images/image.jpg'
 import MessageElement from './MessageElement'
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import { connect } from 'react-redux'
 
-const Message = () => {
+const MessagesRoom = ({ match, username, chat_rooms, user }) => {
 
     const [ message, setMessage ] = useState('')
+
+    const [ messagesOfRoom, setMessagesOfRoom ] = useState([
+        {
+            username: 'umiraj',
+            message: 'Lorem ipsum dolor sit amet.',
+        },
+        {
+            username: 'sahil',
+            message: 'Lorem ipsum dolor sit amet.',
+        },
+        {
+            username: 'umiraj',
+            message: 'Lorem ipsum dolor sit amet.',
+        },
+        {
+            username: 'sahil',
+            message: 'Lorem ipsum dolor sit amet.',
+        },
+        {
+            username: 'umiraj',
+            message: 'Lorem ipsum dolor sit amet.',
+        },
+        {
+            username: 'sahil',
+            message: 'Lorem ipsum dolor sit amet.',
+        },
+    ])
+
+    const id = match.params.id
+
+    const socket = useContext(SocketContext)
     
     const [ profilePopup, setProfilePopup ] = useState(false)
 
     const handleSubmit = e => {
         e.preventDefault()
+        const messageElement = {
+            username,
+            message
+        }
+        socket.emit('send-message', messageElement)
+        setMessagesOfRoom([...messagesOfRoom, messageElement])
+        setMessage('')
+    }
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    socket.on('recieve-message', data=>{
+        setMessagesOfRoom([...messagesOfRoom , data])
+    })
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [id, messagesOfRoom]);
+
+    const returnChatNameOfOppositeUser = users => {
+        var ind;
+        users.map((user)=>{
+            if(user.username !== username){
+                ind = user
+            }
+        })
+        return ind
     }
 
     return (
@@ -26,30 +90,28 @@ const Message = () => {
                             <h4>Inbox</h4>
                         </div>
                         <div className="message__Contacts">
-                            <ContactElement 
-                                name="Sahil Gupta" 
-                                status="Online" 
-                                time="1:15 pm" 
-                                online
-                                message="Hello!! How are you"
-                                roomId={8478}
-                            />
-                            <ContactElement name="Ram Kaushik" status="Online" online time="4:30 am" message="Lorem ipsum dolor sit amet, incididunt ut." roomId={3534} />
-                            <ContactElement name="Priya kamaji" status="Offline" time="yesterday" message="Lorem ipsum dolor sit amet." roomId={3523} />
-                            <ContactElement name="Priya kamaji" status="Offline" time="yesterday" message="Lorem ipsum dolor sit amet." roomId={3521} />
-                            <ContactElement name="Selmon Khan" status="Driver" online time="yesterday" message="Gadi driver chala raha tha" roomId={3578} />
-                            <ContactElement name="Selmon Khan" status="Driver" online time="yesterday" message="Gadi driver chala raha tha" roomId={3565} />
-                            <ContactElement name="Narendra Modi" status="Offline" time="1 week ago" message="Bhaiyo aur beheno" roomId={3500} />
+                            {chat_rooms.map((val, key)=>{
+                                const user = returnChatNameOfOppositeUser(val.users)
+                                return <ContactElement 
+                                    key={key}
+                                    name={user?.first_name + ' ' + user?.last_name} 
+                                    status={user?.status? "online": "offline"} 
+                                    time="1:15 pm" 
+                                    online={user?.status}
+                                    message="Hello!! How are you"
+                                    roomId={val.id}
+                                />
+                            })}
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-6 col-md-6 col-12">
+                <div className="col-lg-8 col-md-8 col-12">
                     <div className="message__ConversationDiv">
                         <div className="message__UserHeader">
                             <div className="message__User">
                                 <Avatar />
                                 <div className="message__UserDetails">
-                                    <h6>Sahil Gupta</h6>
+                                    <h6>{user.first_name + ' ' + user.last_name}</h6>
                                     <p>Online<div style={{backgroundColor: "#58db83"}} ></div></p>
                                 </div>
                             </div>
@@ -63,15 +125,12 @@ const Message = () => {
                             </div>
                         </div>
                         <div className="message__Conversation">
-                            <MessageElement/>
-                            <MessageElement isMyMessage />
-                            <MessageElement/>
-                            <MessageElement isMyMessage />
-                            <MessageElement/>
-                            <MessageElement isMyMessage />
-                            <MessageElement/>
-                            <MessageElement isMyMessage />
-                            <MessageElement/>
+                            {
+                                messagesOfRoom.map((val, key)=> {
+                                    return <MessageElement key={key} text={val.message} isMyMessage={val.username===username} />
+                                })
+                            }
+                            <div ref={messagesEndRef} />
                         </div>
                         <div className="message__SendMessage">
                             <form onSubmit={handleSubmit} >
@@ -88,7 +147,7 @@ const Message = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-3 col-md-3 col-12">
+                {/* <div className="col-lg-3 col-md-3 col-12">
                     <div className="message__RightProfileDiv">
                         <img
                             src={image}
@@ -139,10 +198,16 @@ const Message = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )
 }
 
-export default Message
+const mapStateToProps = state => ({
+    username: state.Login.username,
+    user: state.Login,
+    chat_rooms: state.Messages.chat_rooms,
+})
+
+export default connect(mapStateToProps)(MessagesRoom)

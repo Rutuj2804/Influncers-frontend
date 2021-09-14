@@ -1,6 +1,32 @@
-.dashboard__Wrapper{
-    .dashboard__Table{
+.projectDashboard__Wrapper{
+    .projectDashboard__TopButtonGrpLeft{
+        button{
+            width: 48%;
+            margin: 0 1%;
+            background-color: #faeccd;
+            color: #f5b225;
+            &:nth-of-type(even){
+                background-color: #dedbeb;
+                color: $blue;
+            }
+        }
+    }
+    .projectDashboard__TopButtonGrpRight{
+        button{
+            width: 48%;
+            margin: 0 1%;
+            background-color: #fce8e8;
+            color: #863d3f;
+            &:nth-of-type(even){
+                color: #1f5948;
+                background-color: #c4f8e5;
+            }
+        }   
+    }
+    .projectDashboard__Table{
         width: 100%;
+        // background-color: $white;
+        // padding: 20px;
         table{
             width: 100%;
             border-collapse: collapse;

@@ -36,11 +36,11 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
     useEffect(()=>{
         setFormData({
             photo: single_listing.user?.photo?single_listing.user.photo:image,
-            first_name: single_listing.user.first_name,
-            last_name: single_listing.user.last_name,
+            first_name: single_listing.user?.first_name,
+            last_name: single_listing.user?.last_name,
             title: single_listing.title,
-            city: single_listing.user.city,
-            state: single_listing.user.state,
+            city: single_listing.user?.city,
+            state: single_listing.user?.state,
             payment: single_listing.payment,
             type: single_listing.type,
             place: single_listing.place,
@@ -84,7 +84,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
             </div>
             <div className="listingDetailPage__MiddlePart">
                 <div className="listingDetailPage__Tags">
-                    {formData.requirements.map((val, key)=>{
+                    {formData.requirements?.map((val, key)=>{
                         return <p key={key}>{val.name}</p>
                     })}
                 </div>
@@ -107,7 +107,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
                     <div className="listingDetailPage__SkillBlock" >
                         <div className="listingDetailPage__Dividation" >
                             <TrackChangesRounded fontSize="large" />
-                            <p>{formData.target.toLocaleString('en-US')}</p>
+                            <p>{formData.target?.toLocaleString('en-US')}</p>
                         </div>
                     </div>
                     <div className="listingDetailPage__SkillBlock" >
@@ -130,7 +130,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
                         <h4>Work description</h4>
                         <ul>
                             {
-                                formData.work_description.map((val, key)=>{
+                                formData.work_description?.map((val, key)=>{
                                     return <li key={key} >
                                                 <CheckRounded/>
                                                 <p>{val.text}</p>
@@ -144,7 +144,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
                 <div className="listingDetailPage__Rewards">
                         <h4>Rewards</h4><br/>
                         <div>
-                            {formData.reward.map((val, key)=>{
+                            {formData.reward?.map((val, key)=>{
                                 return <p key={key}>{val.text}</p>
                             })}
                         </div>

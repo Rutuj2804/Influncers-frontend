@@ -1,10 +1,13 @@
 import { GroupRounded, VisibilityRounded } from '@material-ui/icons'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 const Campaign = () => {
 
+    const history = useHistory()
+
     return (
-        <div className="campaign__Wrapper">
+        <div className="campaign__Wrapper" onClick={()=>history.push(`/project/3`)} >
             <div className="campaign__Left">
                 <div className="campaign__ListingDetails" >
                     <h6>Ad film for Google Inc.<div></div></h6>
