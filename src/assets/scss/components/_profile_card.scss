@@ -6,6 +6,11 @@
     padding: 10px 15px;
     box-shadow: 2px 2px 5px #efefef;
     cursor: pointer;
+    text-transform: capitalize;
+    &:hover{
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        transition: all 0.2s linear;
+    }
     .profileCard__Header{
         display: flex;
         align-items: center;

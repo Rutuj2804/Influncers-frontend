@@ -1,13 +1,14 @@
-import { ContactSupportRounded, DashboardRounded, EqualizerRounded, HomeRounded, ModeCommentRounded, PeopleRounded, SettingsRounded } from '@material-ui/icons'
+import { IconButton } from '@material-ui/core'
+import { CloseRounded, ContactSupportRounded, DashboardRounded, EqualizerRounded, HomeRounded, ModeCommentRounded, PeopleRounded, SettingsRounded } from '@material-ui/icons'
 import React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 
-const Sidebar = () => {
+const Sidebar = ({ toggle, setToggle }) => {
 
     const history = useHistory()
 
     return (
-        <div className="sidebar__Wrapper">
+        <div className={!toggle?"sidebar__Wrapper sidebar__NavbarToggle":"sidebar__Wrapper"}>
             <div className="sidebar__Logo">
                 <h4>Neuro.</h4>
             </div>
@@ -22,8 +23,11 @@ const Sidebar = () => {
                 </ul>
             </div>
             <div className="sidebar__Footer" onClick={()=>history.push('/help')} >
-                <ContactSupportRounded/>
+                <div className="sideBar__Create">
+                    <h6>Create</h6>
+                </div>
             </div>
+            <div  className="sidebar__CloseIcon" ><IconButton onClick={()=>setToggle(false)}><CloseRounded fontSize="small" /></IconButton></div>
         </div>
     )
 }

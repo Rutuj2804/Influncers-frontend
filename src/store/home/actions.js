@@ -2,7 +2,8 @@ import {
     FETCH_LISTINGS_SUCCESS,
     FETCH_LISTINGS_FAIL,
     FETCH_DETAIL_LISTING_VIEW_SUCCESS,
-    FETCH_DETAIL_LISTING_VIEW_FAIL
+    FETCH_DETAIL_LISTING_VIEW_FAIL,
+    REMOVE_MESSAGES
 } from "./types"
 import axios from "axios"
 import { loading_starts, loading_stops } from '../loading/actions'
@@ -21,6 +22,37 @@ export const fetch_listings = () => async dispatch =>{
     try {
     
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/listings/get/`, config)
+
+        dispatch({
+            type: FETCH_LISTINGS_SUCCESS,
+            payload: res.data.listings
+        })
+
+    } catch (error) {
+        dispatch({
+            type: FETCH_LISTINGS_FAIL
+        })
+    }
+
+    dispatch(loading_stops())
+    
+}
+
+
+export const filter_listings = (body) => async dispatch =>{
+
+    dispatch(loading_starts())
+
+    const config = {
+        headers: {
+            "Content-type": "Application/json",
+            "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+    }
+
+    try {
+    
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/listings/filter/`, body, config)
 
         dispatch({
             type: FETCH_LISTINGS_SUCCESS,
@@ -67,5 +99,13 @@ export const fetch_detail_view_of_listing = (id) => async dispatch =>{
     }
 
     dispatch(loading_stops())
+    
+}
+
+export const remove_messages_from_home = () => async dispatch =>{
+
+    dispatch({
+        type: REMOVE_MESSAGES
+    })
     
 }

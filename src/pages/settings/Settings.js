@@ -1,11 +1,27 @@
 import { Brightness4Rounded, ChevronRightRounded, ContactSupportRounded, DeleteRounded, TouchAppRounded } from '@material-ui/icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Paper from '../../components/commons/paper/Paper'
 import Switch from '@material-ui/core/Switch';
 
 const Settings = () => {
 
     const [ darkMode, setDarkMode ] = useState(false)
+
+    const handleDarkModeChange = (val) => {
+        setDarkMode(val)
+        localStorage.setItem('theme-dark', val)
+        if(val){
+            document.body.classList.add('dark')
+        } else {
+            document.body.classList.remove('dark')
+        }
+    } 
+
+    useEffect(()=>{
+        if(localStorage.getItem('theme-dark')){
+            setDarkMode(true);
+        }
+    }, [])
 
     return (
         <div className="pt-5">
@@ -23,7 +39,7 @@ const Settings = () => {
                                 </div>
                                 <Switch
                                     checked={darkMode}
-                                    onChange={e=>setDarkMode(e.target.checked)}
+                                    onChange={e=>handleDarkModeChange(e.target.checked)}
                                     color="primary"
                                     name="checkedB"
                                     inputProps={{ 'aria-label': 'primary checkbox' }}

@@ -2,30 +2,111 @@
     position: sticky;
     top: 20px;
     left: inherit;
-    .home__ProjectType{
-        width: 100%;
-    }
-    .home__Slider{
-        p{
-            font-size: 14px;
-            font-weight: 600;
+    background-color: $white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #efefef;
+    .home__FilterOptionsDiv{
+        .home__SkillsSearch{
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            h6{
+                font-weight: 600;
+            }
+            .home__SkillsSearchDiv{
+                border: 1px solid #707070;
+                padding: 0 4px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                input{
+                    border: none;
+                    outline: none;
+                    width: 100%;
+                    padding: 5px 14px;
+                }
+            }
+            .home__SalaryType{
+                display: flex;
+                flex-direction: column;
+                label{
+                    font-size:14px;
+                    font-weight: 500;
+                }
+            }
+            .radio_Label{
+                display: inline-flex;
+                align-items: center;
+                cursor: pointer;
+                margin:10px 10px;
+                .radio_input{
+                    display: none;
+                    &:checked + .radio_Radio::after{
+                        transform: scale(1);
+                    }
+                }
+                .radio_Radio{
+                    width: 1.25em;
+                    height: 1.25em;
+                    border: 2px solid $blue;
+                    // box-shadow: 0 0 5px 0px $blue;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                    box-sizing: border-box;
+                    padding: 2px;
+                    &::after{
+                        content: '';
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        background-color: $blue;
+                        border-radius: 50%;
+                        transform: scale(0);
+                        transition: transform 0.15s linear;
+                    }
+                }
+            }
+        }
+        button{
+            background-color:$secondary;
+            color: $white;
+            width: 100%;
         }
     }
-    .home__CheckBoxOptions{
-        .home__CheckBoxDiv{
-            label, span{
-                font-size: 14px!important;
-                font-weight: 500;
+}
+
+.dark .home__FilterContainer{
+    background-color: $dark-secondary-light;
+    color: $light;
+    box-shadow: 0 0 20px $dark-secondary;
+    .home__FilterOptionsDiv{
+        .home__SkillsSearch{
+            .home__SkillsSearchDiv{
+                border: 1px solid #000;
+            }
+            .home__SkillsSearchDiv{
+                border: 1px solid $dark-secondary;
+                padding: 0 4px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                background-color: $dark-primary;
+                input{
+                    border: none;
+                    outline: none;
+                    width: 100%;
+                    background-color: transparent;
+                    padding: 5px 14px;
+                    color: inherit;
+                }
             }
         }
     }
-    .home__CheckBoxApply{
-        margin: 20px;
-        text-align: center;
-        button{
-            background-color: $secondary!important;
-            font-size: 14px;
-            color: $white;
-        }
+}
+
+@media screen and (max-width: 992px) {
+    .home__Wrapper .globalDivDisplayNone{
+        display: none;
     }
 }

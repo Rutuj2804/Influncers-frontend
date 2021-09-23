@@ -20,6 +20,7 @@
 @import "./pages/settings";
 @import "./pages/edit-profile";
 @import "./pages/project-dashboard";
+@import "./pages/view-resume";
 
 // components
 @import "./components/sidebar";
@@ -40,6 +41,8 @@
 @import "./components/add_component";
 @import "./components/add_collaboration";
 @import "./components/radio";
+@import "./components/success_and_error";
+@import "./components/update-application-popover";
 
 *{
     margin: 0%;
@@ -58,5 +61,16 @@ body{
     &::-webkit-scrollbar-thumb{
         background: $secondary-light;
         border-radius: 5px;
+    }
+}
+
+.dark{
+    background-color: #313131;
+    color: $dark-secondary;
+}
+
+@media screen and (max-width: 760px) {
+    .globalDivDisplayNone{
+        display: none;
     }
 }

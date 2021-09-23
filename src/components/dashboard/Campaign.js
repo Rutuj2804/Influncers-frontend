@@ -2,34 +2,43 @@ import { GroupRounded, VisibilityRounded } from '@material-ui/icons'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-const Campaign = () => {
+const Campaign = ({ title, requirements, views, bids, price, type, time, id, completed, deleted }) => {
 
     const history = useHistory()
 
     return (
-        <div className="campaign__Wrapper" onClick={()=>history.push(`/project/3`)} >
+        <div className="campaign__Wrapper" onClick={()=>history.push(`/project/${id}`)} >
             <div className="campaign__Left">
                 <div className="campaign__ListingDetails" >
-                    <h6>Ad film for Google Inc.<div></div></h6>
-                    <p>Actor, Director, Script Writer</p>
+                    <h6>{title}<div className={completed || deleted?"campaign__Offline":"campaign__Online"}></div></h6>
+                    <p>{requirements.map((val,key)=>{
+                            if(key===2){
+                                return `${val.name} `
+                            }
+                            else if(key<=2) {
+                                return `${val.name}, `
+                            } else {
+                                return null
+                            }
+                        })}</p>
                 </div>
                 <div className="campaign__RealtimeDetails">
                     <div className="campaign__Visibility" >
                         <VisibilityRounded fontSize="small"/>
-                        <p>260 Views</p>
+                        <p>{views} Views</p>
                     </div>
                     <div className="campaign__Bids" >
                         <GroupRounded fontSize="small"/>
-                        <p>26 Bids</p>
+                        <p>{bids} Bids</p>
                     </div>
                 </div>
             </div>
             <div className="campaign__Right">
                 <div className="campaign__Money">
-                    <span>$126</span><p>/&nbsp;video</p>
+                    <span>${price}</span><p>/&nbsp;{type}</p>
                 </div>
                 <div className="campaign__Time">
-                    <p>2 day ago</p>
+                    <p>{time}</p>
                 </div>
             </div>
         </div>

@@ -1,218 +1,136 @@
 import React, { useEffect, useState } from 'react'
-import Paper from '../../components/commons/paper/Paper'
 import Listing from '../../components/home/Listing'
-import Input from '../../components/commons/input/Input'
-import { FilterListRounded } from '@material-ui/icons'
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import ProfileCard from '../../components/commons/profileCard/ProfileCard'
-import { fetch_listings } from '../../store/actions'
-import { Button, Checkbox, FormControlLabel, Slider, Typography } from '@material-ui/core'
+import { LocationOnRounded, SearchRounded } from '@material-ui/icons'
+import { fetch_listings, filter_listings } from '../../store/actions'
 import { connect } from 'react-redux'
+import { Button } from '@material-ui/core'
 
-const Home = ({ fetch_listings, listings }) => {
+const Home = ({ fetch_listings, listings, filter_listings }) => {
 
     const [ formData, setFormData ] = useState({
-        filter_search: '',
-        target: 3000,
-        money: 4000,
-        actor: false,
-        director: false,
-        singer: false,
-        lyricist: false,
-        writer: false,
+        skills: '',
+        location: '',
+        salary_type: 'hour',
+        salary: '1000',
     })
 
     useEffect(()=>{
         fetch_listings()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
-    const handleCheckBoxChange = (event) => {
-        setFormData({ ...formData, [event.target.name]: event.target.checked });
-    };
-
-    const handleSliderChange = (eve, val) => {
-        console.log(val)
-        setFormData({
-            ...formData, 
-            [eve.target.name]: val
-        })
-    }
-
-    const [type, setType] = useState('');
 
     const handleChange = (event) => {
-        setType(event.target.value);
+        setFormData({ ...formData,[event.target.name]:event.target.value});
     };
 
-    const { filter_search, target, money } = formData
+    const { skills, location, salary_type, salary } = formData
 
     const handleSubmit = e => {
         e.preventDefault()
-    }
-
-    const applyFilter = () => {
-        console.log(formData, type)
+        filter_listings(formData)
     }
 
     return (
         <div className="home__Wrapper">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-3 col-md-3 col-12">
+                    <div className="col-lg-3 col-md-3 col-12 globalDivDisplayNone">
                         <div className="home__FilterContainer">
-                            <Paper>
                                 <h5>Filters</h5>
                                 <div className="home__FilterOptionsDiv mt-4">
-                                    <div className="home__SearchForm">
-                                        <form onSubmit={handleSubmit} >
-                                            <Input 
-                                                type="text"
-                                                name="filter_search"
-                                                value={filter_search}
-                                                setFormData={setFormData}
-                                                formData={formData}
-                                                isRequired
-                                                icon={<FilterListRounded fontSize="small" />}
-                                                placeholder="Search..."
-                                            />
-                                        </form>
-                                    </div>
-                                    <div className="home__ProjectType mb-4">
-                                        <FormControl style={{width: '100%'}} >
-                                            <InputLabel id="demo-simple-select-label">Type</InputLabel>
-                                            <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={type}
-                                            onChange={handleChange}
-                                            >
-                                            <MenuItem value={10}>Project</MenuItem>
-                                            <MenuItem value={20}>Campaign</MenuItem>
-                                            <MenuItem value={30}>Collaborate</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </div>
-                                    <div className="home__Slider">
-                                        <div>
-                                            <Typography id="discrete-slider" gutterBottom>
-                                                Target Audience
-                                            </Typography>
-                                            <Slider
-                                                defaultValue={target}
-                                                aria-labelledby="discrete-slider"
-                                                valueLabelDisplay="auto"
-                                                name="target"
-                                                onChange={(e,v)=>handleSliderChange(e,v)}
-                                                step={1000}
-                                                marks
-                                                min={1000}
-                                                max={10000}
-                                            />
-                                        </div>
-                                        <div>
-                                            <Typography id="discrete-slider" gutterBottom>
-                                                Money
-                                            </Typography>
-                                            <Slider
-                                                defaultValue={money}
-                                                aria-labelledby="discrete-slider"
-                                                valueLabelDisplay="auto"
-                                                onChange={(e,v)=>handleSliderChange(e,v)}
-                                                name="money"
-                                                step={1000}
-                                                marks
-                                                min={1000}
-                                                max={10000}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="home__CheckBoxOptions">
-                                        <div className="home__CheckBoxDiv">
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox
-                                                    checked={formData.actor}
-                                                    onChange={handleCheckBoxChange}
-                                                    name="actor"
-                                                    color="primary"
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="home__SkillsSearch">
+                                            <h6>Skills</h6>
+                                            <div className="home__SkillsSearchDiv">
+                                                <label><SearchRounded fontSize="small" /></label>
+                                                <input 
+                                                    type="text"
+                                                    name="skills"
+                                                    value={skills}
+                                                    onChange={e=>handleChange(e)}
+                                                    placeholder="Search Skills"
                                                 />
-                                                }
-                                                label="Actor"
-                                            />
+                                            </div>
                                         </div>
-                                        <div className="home__CheckBoxDiv">
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox
-                                                    checked={formData.director}
-                                                    onChange={handleCheckBoxChange}
-                                                    name="director"
-                                                    color="primary"
+                                        <div className="home__SkillsSearch">
+                                            <h6>Location</h6>
+                                            <div className="home__SkillsSearchDiv">
+                                                <label><LocationOnRounded fontSize="small" /></label>
+                                                <input 
+                                                    type="text"
+                                                    name="location"
+                                                    value={location}
+                                                    onChange={e=>handleChange(e)}
+                                                    placeholder="Search By Location"
                                                 />
-                                                }
-                                                label="Director"
-                                            />
+                                            </div>
                                         </div>
-                                        <div className="home__CheckBoxDiv">
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox
-                                                    checked={formData.writer}
-                                                    onChange={handleCheckBoxChange}
-                                                    name="writer"
-                                                    color="primary"
-                                                />
-                                                }
-                                                label="Script Writer"
-                                            />
+                                        <div className="home__SkillsSearch">
+                                            <h6>Salary Type</h6>
+                                            <div className="home__SalaryType">
+                                                <label htmlFor="hour" className="radio_Label" >
+                                                    <input id="hour" name="salary_type" type="radio" checked={salary_type==='hour'} value="hour" onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    Per Hourly
+                                                </label>
+                                                <label htmlFor="day" className="radio_Label" >
+                                                    <input id="day" name="salary_type" type="radio" checked={salary_type==='day'} value="day" onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    Per Day
+                                                </label>
+                                                <label htmlFor="month" className="radio_Label" >
+                                                    <input id="month" name="salary_type" type="radio" checked={salary_type==='month'} value="month" onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    Per Monthly
+                                                </label>
+                                                <label htmlFor="week" className="radio_Label" >
+                                                    <input id="week" name="salary_type" type="radio" checked={salary_type==='week'} value="week" onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    Per Week
+                                                </label>
+                                                <label htmlFor="project" className="radio_Label" >
+                                                    <input id="project" name="salary_type" type="radio" checked={salary_type==='project'} value="project" onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    Per Project
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div className="home__CheckBoxDiv">
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox
-                                                    checked={formData.singer}
-                                                    onChange={handleCheckBoxChange}
-                                                    name="singer"
-                                                    color="primary"
-                                                />
-                                                }
-                                                label="Singer"
-                                            />
+                                        <div className="home__SkillsSearch">
+                                            <h6>Salary</h6>
+                                            <div className="home__SalaryType">
+                                                <label htmlFor="thousand" className="radio_Label" >
+                                                    <input id="thousand" name="salary" type="radio" checked={salary==="1000"} value={"1000"} onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    {`< 1,000 $`}
+                                                </label>
+                                                <label htmlFor="fivek" className="radio_Label" >
+                                                    <input id="fivek" name="salary" type="radio" checked={salary==="5000"} value={"5000"} onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    {`1,000 $ - 10,000 $`}
+                                                </label>
+                                                <label htmlFor="tenk" className="radio_Label" >
+                                                    <input id="tenk" name="salary" type="radio" checked={salary==="10000"} value={"10000"} onChange={e=>handleChange(e)} className="radio_input" />
+                                                    <div className="radio_Radio"></div>
+                                                    {`> 10,000 $`}
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div className="home__CheckBoxDiv">
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox
-                                                    checked={formData.lyricist}
-                                                    onChange={handleCheckBoxChange}
-                                                    name="lyricist"
-                                                    color="primary"
-                                                />
-                                                }
-                                                label="Lyricist"
-                                            />
+                                        <div className="home__FilterButton">
+                                            <Button type="submit">Filter</Button>
                                         </div>
-                                    </div>
-                                    <div className="home__CheckBoxApply">
-                                        <Button onClick={()=>applyFilter()} >Apply Filter</Button>
-                                    </div>
+                                    </form>
                                 </div>
-                            </Paper>
                         </div>
                     </div>
-                    <div className="col-lg-6 col-md-6 col-12">
+                    <div className="col-lg-8 col-md-12 col-12">
                         {listings.map((val, key)=>{
                             return <Listing 
                                         key={key}
                                         id={val.id}
                                         title={val.title}
                                         requirements={val.requirements}
-                                        views={val.views}
-                                        applications={0}
+                                        views={val.views.length}
+                                        applications={val.applications.length}
                                         price={val.payment}
                                         price_on={'video'}
                                         type={val.type}
@@ -223,13 +141,8 @@ const Home = ({ fetch_listings, listings }) => {
                                     />
                         })}
                     </div>
-                    <div className="col-lg-3 col-md-3 col-12">
-                        <div>
-                            <ProfileCard/>
-                            <ProfileCard/>
-                            <ProfileCard/>
-                            <ProfileCard/>
-                        </div>
+                    <div className="col-lg-3 col-md-3 col-12 globalDivDisplayNone">
+                        
                     </div>
                 </div>
             </div>
@@ -241,4 +154,4 @@ const mapStateToProps = state => ({
     listings: state.Home.listings
 })
 
-export default connect(mapStateToProps,{ fetch_listings })(Home)
+export default connect(mapStateToProps,{ fetch_listings, filter_listings })(Home)

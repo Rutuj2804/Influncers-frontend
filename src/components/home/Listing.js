@@ -1,6 +1,6 @@
-import { Button, IconButton } from '@material-ui/core'
-import { BlockRounded, BookmarkRounded, GroupRounded, LocationOnRounded, MoreVertRounded, PersonRounded, ReportProblemRounded, SubjectRounded, TrackChangesRounded, VideocamRounded, VisibilityRounded, WorkRounded } from '@material-ui/icons'
-import React, { useState } from 'react'
+import { Button, IconButton, Tooltip } from '@material-ui/core'
+import { BlockRounded, BookmarkRounded, Brightness1Rounded, GroupRounded, LocationOnRounded, MoreVertRounded, PersonRounded, ReportProblemRounded, SubjectRounded, TrackChangesRounded, VisibilityRounded, WorkRounded } from '@material-ui/icons'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import image from '../../assets/images/image.jpg'
 import moment from 'moment'
@@ -11,8 +11,28 @@ const Listing = ({ id, profile_image, title, requirements, views, applications, 
 
     const history = useHistory()
 
+    const wrapperRef = useRef();
+
+    useEffect(()=>{
+        document.addEventListener('mousedown', e => {
+            const { current: wrap } = wrapperRef
+            if(wrap && !wrap.contains(e.target)){
+                setProfilePopup(false)
+            }
+        })
+
+        return () => {
+            document.removeEventListener('mousedown', e => {
+                const { current: wrap } = wrapperRef
+                if(wrap && !wrap.contains(e.target)){
+                    setProfilePopup(false)
+                }
+            })
+        }
+    }, [])
+
     return (
-        <div className="listing__Wrapper">
+        <div className="listing__Wrapper" ref={wrapperRef}>
             <div className="listing__Header">
                 <div className="listing__HeaderLeft" onClick={()=>history.push(`/listing/${id}`)} >
                     <img 
@@ -77,25 +97,33 @@ const Listing = ({ id, profile_image, title, requirements, views, applications, 
                         </div>
                         <div className="listing__SkillBlock" >
                             <div className="listing__Dividation" >
-                                <WorkRounded fontSize="small" />
+                                <Tooltip title="Type" >
+                                    <WorkRounded fontSize="small" />
+                                </Tooltip>
                                 <p>{type}</p>
                             </div>
                         </div>
                         <div className="listing__SkillBlock" >
                             <div className="listing__Dividation" >
-                                <LocationOnRounded fontSize="small" />
+                                <Tooltip title="Location">
+                                    <LocationOnRounded fontSize="small" />
+                                </Tooltip>
                                 <p>{place}</p>
                             </div>
                         </div>
                         <div className="listing__SkillBlock" >
                             <div className="listing__Dividation" >
-                                <TrackChangesRounded fontSize="small" />
+                                <Tooltip title="Target">
+                                    <TrackChangesRounded fontSize="small" />
+                                </Tooltip>
                                 <p>{target.toLocaleString('en-US')}</p>
                             </div>
                         </div>
                         <div className="listing__SkillBlock" >
                             <div className="listing__Dividation" >
-                                <VideocamRounded fontSize="small" />
+                                <Tooltip title="Positions">
+                                    <Brightness1Rounded fontSize="small" />
+                                </Tooltip>
                                 <p>{positions}</p>
                             </div>
                         </div>

@@ -1,16 +1,17 @@
 import { Badge, IconButton } from '@material-ui/core'
-import { ChevronRightRounded, EditRounded, NotificationsRounded, AddRounded, PersonRounded, PowerSettingsNewRounded, SearchRounded, SettingsRounded, SubjectRounded } from '@material-ui/icons'
-import React, { useState } from 'react'
+import { ChevronRightRounded, EditRounded, NotificationsRounded, AddRounded, PersonRounded, PowerSettingsNewRounded, SearchRounded, SettingsRounded, SubjectRounded, NotesRounded, DescriptionRounded, ContactSupportRounded, FullscreenRounded } from '@material-ui/icons'
+import React, { useEffect, useRef, useState } from 'react'
 import Notification from './Notification'
 import ProfileNavigation from './ProfileNavigation'
 import image from '../../../assets/images/image.jpg'
 import { useHistory } from 'react-router-dom'
-import { logout_user } from '../../../store/actions'
+import { logout_user, set_seen_notifications } from '../../../store/actions'
 import AddComponent from './AddComponent'
 import AddCollaboratiion from '../../popups/add/AddCollaboratiion'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
-const Navbar = ({ logout_user, first_name, last_name, city, state, notifications_unseen }) => {
+const Navbar = ({ logout_user, first_name, last_name, city, state, notifications_unseen, toggle, setToggle, set_seen_notifications }) => {
 
     const [ search, setSearch ] = useState('')
 
@@ -21,6 +22,8 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
     const [ openAdd, setopenAdd ] = useState(false);
 
     const [ collaborationPopup, setCollaborationPopup ] = useState(false);
+
+    const [ fullSrceen, setFullSrceen ] = useState(false);
 
     const history = useHistory()
 
@@ -45,12 +48,98 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
         console.log(search)
     }
 
+    const wrapperRef = useRef();
+    const notificationRef = useRef();
+    const addRef = useRef();
+
+    useEffect(()=>{
+        document.addEventListener('mousedown', e => {
+            const { current: wrap } = wrapperRef
+            if(wrap && !wrap.contains(e.target)){
+                setOpenProfile(false)
+            }
+        })
+
+        return () => {
+            document.removeEventListener('mousedown', e => {
+                const { current: wrap } = wrapperRef
+                if(wrap && !wrap.contains(e.target)){
+                    setOpenProfile(false)
+                }
+            })
+        }
+    }, [])
+
+    useEffect(()=>{
+        document.addEventListener('mousedown', e => {
+            const { current: wrap } = notificationRef
+            if(wrap && !wrap.contains(e.target)){
+                setOpenNotification(false)
+            }
+        })
+
+        return () => {
+            document.removeEventListener('mousedown', e => {
+                const { current: wrap } = notificationRef
+                if(wrap && !wrap.contains(e.target)){
+                    setOpenNotification(false)
+                }
+            })
+        }
+    }, [])
+
+    useEffect(()=>{
+        document.addEventListener('mousedown', e => {
+            const { current: wrap } = addRef
+            if(wrap && !wrap.contains(e.target)){
+                setopenAdd(false)
+            }
+        })
+
+        return () => {
+            document.removeEventListener('mousedown', e => {
+                const { current: wrap } = addRef
+                if(wrap && !wrap.contains(e.target)){
+                    setopenAdd(false)
+                }
+            })
+        }
+    }, [])
+
+    // full screen
+    var elem = document.documentElement;
+    function openFullscreen() {
+        setFullSrceen(true);
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+      }
+      
+      /* Close fullscreen */
+    function closeFullscreen() {
+        setFullSrceen(false)
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+          document.msExitFullscreen();
+        }
+      }
+
     return (
         <>
-        <div className="navbar__Wrapper" >
+        <div className={toggle?"navbar__Wrapper":"navbar__Wrapper navbar__Toggle"} >
             <div className="navbar__Left">
-                <p>Welcome Back,</p>
-                <span>{first_name+' '+last_name}</span>
+                <IconButton onClick={()=>setToggle(!toggle)}><NotesRounded /></IconButton>
+                <div>
+                    <p>Welcome Back,</p>
+                    <span>{first_name+' '+last_name}</span>
+                </div>
             </div>
             <div className="navbar__Right">
                 <div className="navbar__Search">
@@ -67,32 +156,38 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
                         </div>
                     </form>
                 </div>
-                <div className="navbar__Notifications">
+                <div className="navbar__Notifications" ref={addRef}>
                     <IconButton size="medium" onClick={()=>handleSubMenuOpen('add')}>
                         <AddRounded/>
                     </IconButton>
                     <ul style={openAdd?{display: "block"}:{display: "none"}}>
-                        <li onClick={()=>setCollaborationPopup(true)} ><AddComponent/></li>
+                        <li onClick={()=>setCollaborationPopup(true)}><AddComponent setCollaborationPopup={setCollaborationPopup} /></li>
                     </ul>
                 </div>
-                <div className="navbar__Notifications">
-                    <IconButton size="medium" onClick={()=>handleSubMenuOpen('notification')}>
+                
+                <div className="navbar__Notifications" >
+                    <IconButton size="medium" onClick={()=>fullSrceen?closeFullscreen():openFullscreen()}>
+                        <FullscreenRounded/>
+                    </IconButton>
+                </div>
+                <div className="navbar__Notifications" ref={notificationRef}>
+                    <IconButton size="medium" onClick={()=>{handleSubMenuOpen('notification');set_seen_notifications();}}>
                         <Badge badgeContent={notifications_unseen.length} color="primary">
                             <NotificationsRounded/>
                         </Badge>
                     </IconButton>
                     <ul style={openNotification?{display: "block"}:{display: "none"}}>
                         {notifications_unseen.map((val, key)=>{
-                            return <li key={key}><Notification /></li>
+                            return <li key={key}><Notification by_user={val.by_user} text_one={val.text_one} highlighted_text={val.highlighted_text} text_two={val.text_two} time={moment(val.created_at).fromNow()}/></li>
                         })}
                         <li onClick={()=>history.push('/notifications')} >
-                            <div className="notification__OpenPage">
+                            <div className="notification__OpenPage"  onClick={()=>history.push('/notifications')} >
                                 <p>View More<ChevronRightRounded/></p>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div className="navbar__Profile">
+                <div className="navbar__Profile" ref={wrapperRef}>
                     <IconButton size="medium" onClick={()=>handleSubMenuOpen('profile')}>
                         <Badge badgeContent={0} color="primary">
                             <PersonRounded/>
@@ -112,7 +207,9 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
                         <li><ProfileNavigation icon={<PersonRounded fontSize="small" />} text="View Profile" path="/profile" /></li>
                         <li><ProfileNavigation icon={<EditRounded fontSize="small" />} text="Edit Profile" path="/edit-profile" /></li>
                         <li><ProfileNavigation icon={<SubjectRounded fontSize="small" />} text="Edit Resume" path="/edit-resume" /></li>
+                        <li><ProfileNavigation icon={<DescriptionRounded fontSize="small" />} text="View Resume" path="/view-resume" /></li>
                         <li><ProfileNavigation icon={<SettingsRounded fontSize="small" />} text="Settings" path="/settings" /></li>
+                        <li><ProfileNavigation icon={<ContactSupportRounded fontSize="small" />} text="Help" path="/help" /></li>
                         <li onClick={()=>logout_user()} ><ProfileNavigation icon={<PowerSettingsNewRounded fontSize="small" />} text="Logout" path="" /></li>
                     </ul>
                 </div>
@@ -135,4 +232,4 @@ const mapStateToProps = state => ({
     notifications_unseen: state.Notifications.notifications_unseen,
 })
 
-export default connect(mapStateToProps, { logout_user })(Navbar)
+export default connect(mapStateToProps, { logout_user, set_seen_notifications })(Navbar)

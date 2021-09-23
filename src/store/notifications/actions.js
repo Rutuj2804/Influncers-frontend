@@ -68,3 +68,22 @@ export const fetch_unseen_notifications = () => async dispatch =>{
     dispatch(loading_stops())
 
 }
+
+export const set_seen_notifications = () => async dispatch =>{
+
+    const config = {
+        headers: {
+            "Content-type": "Application/json",
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    }
+
+    try {
+    
+        await axios.put(`${process.env.REACT_APP_API_URL}/notifications/seen/`, {},config)
+
+    } catch (error) {
+        
+    }
+
+}

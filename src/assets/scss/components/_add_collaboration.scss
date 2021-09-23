@@ -3,6 +3,13 @@
     width: 900px;
     max-height: 90vh;
     overflow-y: scroll;
+    &::-webkit-scrollbar{
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: $secondary-light;
+        border-radius: 5px;
+    }
     .addCollaboration__Header{
         display: flex;
         justify-content: space-between;
@@ -10,6 +17,10 @@
     }
     .addCollaboration__Form{
         margin: 10px 0;
+        button{
+            background-color: $secondary;
+            color: #fff;
+        }
         .addCollaboration__InputDiv{
             position: relative;
             margin-bottom: 20px;
@@ -28,6 +39,71 @@
                 top: 5px;
                 left: 10px;
             }
+        }
+        .addCollaboration__SkillWrapper{
+            display: flex;
+            div{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                padding: 0% 7px;
+                border-radius: 10px;
+                margin-right: 5px;
+                background-color: #efefef;
+                width: auto;
+                button{
+                    background-color: transparent!important;
+                    color: #000;
+                }
+                p{
+                    margin: 0%;
+                }
+            }
+        }
+        .addCollaboration__WorkDescription{
+            div{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0% 7px;
+                border-radius: 10px;
+                margin: 5px 0;
+                background-color: #efefef;
+                width: auto;
+                button{
+                    background-color: transparent!important;
+                    color: #000;
+                }
+                p{
+                    margin: 0%;
+                }
+            }
+        }
+        .editProfile__AdditionInputDiv{
+            .editProfile__LinkFormDiv{
+                position: relative;
+                margin-bottom: 20px;
+                input{
+                    border-radius: 5px;
+                    border: 1px solid #ccc;
+                    outline: none;
+                    width: 100%;
+                    padding: 5px 0px;
+                    padding-left: 45px;
+                    font-size: 16px;
+                }
+                label{
+                    position: absolute;
+                    top: 5px;
+                    left: 10px;
+                }
+            }
+        }
+        .addCollaboration__FormButtons{
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 0;
         }
     }
 }

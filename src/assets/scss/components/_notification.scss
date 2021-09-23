@@ -6,6 +6,7 @@
     width: 350px;
     padding: 10px 20px;
     cursor: pointer;
+    text-transform: capitalize;
     &:hover::before{
         content: '';
         position: absolute;
@@ -31,10 +32,15 @@
             }
             span{
                 font-size: 12px;
+                span{
+                    color: $secondary-light;
+                    font-weight: 600;
+                }
             }
         }
     }
     .notification__Right{
+        text-transform: lowercase;
         p{
             margin: 0%;
             font-size: 12px;

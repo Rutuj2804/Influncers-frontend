@@ -1,0 +1,56 @@
+.successAndError__Popup{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255,255,255,0.3);
+    z-index: 10;
+}
+
+.successPopup__Wrapper{
+    width: 350px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $white;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    .successPopup__Header .MuiSvgIcon-root {
+        fill: $green;
+        font-size: 60px;
+    }
+    .successPopup__Content{
+        text-transform: capitalize;
+    }
+    .successPopup__Footer button {
+        background-color: $green;
+        color: $white;
+    }
+}
+
+.errorPopup__Wrapper{
+    width: 350px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $white;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    .errorPopup__Header .MuiSvgIcon-root {
+        fill: $red;
+        font-size: 60px;
+    }
+    .errorPopup__Content{
+        text-transform: capitalize;
+    }
+    .errorPopup__Footer button {
+        background-color: $red;
+        color: $white;
+    }
+}

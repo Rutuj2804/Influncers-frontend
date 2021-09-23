@@ -74,13 +74,15 @@ const EditProfile = ({ user_from_state, update_user, error_from_state, success_f
         setFormData({ ...formData, links: [...links, link], link_name: '', link_input: '' })
     }
 
-    const handleAddSkills = () => {
-        if(skill_name==='') return;
-        const skill = {
-            id: Math.floor((Math.random())*100000),
-            name: skill_name
+    const handleAddSkills = (e) => {
+        if(e.key === 'Enter'){
+            if(skill_name==='') return;
+            const skill = {
+                id: Math.floor((Math.random())*100000),
+                name: skill_name
+            }
+            setFormData({ ...formData, skills: [...skills, skill], skill_name: '', skill_input: '' })
         }
-        setFormData({ ...formData, skills: [...skills, skill], skill_name: '', skill_input: '' })
     }
 
     const handleFormSubmit = e => {
@@ -235,6 +237,7 @@ const EditProfile = ({ user_from_state, update_user, error_from_state, success_f
                                                 setFormData={setFormData}
                                                 icon={<LinkRounded fontSize="small" />}
                                                 placeholder="Enter link"
+                                                onKeyPressFunction={handleAddLinks}
                                             />
                                             <Button onClick={()=>handleAddLinks()}>Add link</Button>
                                         </div>

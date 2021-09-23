@@ -1,44 +1,18 @@
 import { Avatar, Button, IconButton } from '@material-ui/core'
-import { BlockRounded, EmojiEventsRounded, Facebook, Instagram, MoreVertRounded, PersonRounded, ReportProblemRounded, SendRounded, YouTube } from '@material-ui/icons'
+import { BlockRounded, MoreVertRounded, PersonRounded, ReportProblemRounded, SendRounded } from '@material-ui/icons'
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import { SocketContext } from '../../store/socket/context'
 import ContactElement from './ContactElement'
-import image from '../../assets/images/image.jpg'
 import MessageElement from './MessageElement'
-import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux'
+import { fetch_messages, send_message, clear_chat_room_id, set_seen_messages } from '../../store/actions'
+import moment from 'moment'
 
-const MessagesRoom = ({ match, username, chat_rooms, user }) => {
+const MessagesRoom = ({ match, username, chat_rooms, fetch_messages, opposite_user, messages, send_message, clear_chat_room_id, set_seen_messages }) => {
 
     const [ message, setMessage ] = useState('')
 
-    const [ messagesOfRoom, setMessagesOfRoom ] = useState([
-        {
-            username: 'umiraj',
-            message: 'Lorem ipsum dolor sit amet.',
-        },
-        {
-            username: 'sahil',
-            message: 'Lorem ipsum dolor sit amet.',
-        },
-        {
-            username: 'umiraj',
-            message: 'Lorem ipsum dolor sit amet.',
-        },
-        {
-            username: 'sahil',
-            message: 'Lorem ipsum dolor sit amet.',
-        },
-        {
-            username: 'umiraj',
-            message: 'Lorem ipsum dolor sit amet.',
-        },
-        {
-            username: 'sahil',
-            message: 'Lorem ipsum dolor sit amet.',
-        },
-    ])
+    const [ messagesOfRoom, setMessagesOfRoom ] = useState([])
 
     const id = match.params.id
 
@@ -49,11 +23,14 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
     const handleSubmit = e => {
         e.preventDefault()
         const messageElement = {
-            username,
-            message
+            "user": {"username": username},
+            "text": message,
+            "id": id
         }
+        console.log(messageElement)
+        send_message(message, id)
         socket.emit('send-message', messageElement)
-        setMessagesOfRoom([...messagesOfRoom, messageElement])
+        // setMessagesOfRoom([...messagesOfRoom, messageElement])
         setMessage('')
     }
 
@@ -63,12 +40,28 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
 
+    useEffect(()=>{
+        clear_chat_room_id()
+    }, [])
+
     socket.on('recieve-message', data=>{
         setMessagesOfRoom([...messagesOfRoom , data])
     })
 
+    useEffect(()=>{
+        setMessagesOfRoom(messages)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [messages])
+
+    useEffect(()=>{
+        fetch_messages(id)
+        set_seen_messages(id)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id])
+
     useEffect(() => {
         scrollToBottom()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, messagesOfRoom]);
 
     const returnChatNameOfOppositeUser = users => {
@@ -96,9 +89,9 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
                                     key={key}
                                     name={user?.first_name + ' ' + user?.last_name} 
                                     status={user?.status? "online": "offline"} 
-                                    time="1:15 pm" 
+                                    time={moment(val.last_conversaion).fromNow()} 
                                     online={user?.status}
-                                    message="Hello!! How are you"
+                                    message={val.last_message}
                                     roomId={val.id}
                                 />
                             })}
@@ -111,8 +104,8 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
                             <div className="message__User">
                                 <Avatar />
                                 <div className="message__UserDetails">
-                                    <h6>{user.first_name + ' ' + user.last_name}</h6>
-                                    <p>Online<div style={{backgroundColor: "#58db83"}} ></div></p>
+                                    <h6>{opposite_user.first_name + ' ' + opposite_user.last_name}</h6>
+                                    <p>{opposite_user.status?"Online":"Offline"}<div style={opposite_user.status?{backgroundColor: "#58db83"}:{backgroundColor: "red"}} ></div></p>
                                 </div>
                             </div>
                             <div className="message__Options">
@@ -127,7 +120,7 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
                         <div className="message__Conversation">
                             {
                                 messagesOfRoom.map((val, key)=> {
-                                    return <MessageElement key={key} text={val.message} isMyMessage={val.username===username} />
+                                    return <MessageElement key={key} text={val.text} time={moment(val.created_at).calendar()} isMyMessage={val.user.username===username} />
                                 })
                             }
                             <div ref={messagesEndRef} />
@@ -147,8 +140,8 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="col-lg-3 col-md-3 col-12">
-                    <div className="message__RightProfileDiv">
+                <div className="col-lg-3 col-md-3 col-12">
+                    {/* <div className="message__RightProfileDiv">
                         <img
                             src={image}
                             alt="profile"
@@ -197,8 +190,8 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
                                 <div><YouTube /></div>
                             </div>
                         </div>
-                    </div>
-                </div> */}
+                    </div> */}
+                </div>
             </div>
         </div>
     )
@@ -206,8 +199,9 @@ const MessagesRoom = ({ match, username, chat_rooms, user }) => {
 
 const mapStateToProps = state => ({
     username: state.Login.username,
-    user: state.Login,
+    opposite_user: state.Messages.opposite_user,
     chat_rooms: state.Messages.chat_rooms,
+    messages: state.Messages.messages,
 })
 
-export default connect(mapStateToProps)(MessagesRoom)
+export default connect(mapStateToProps, { fetch_messages, send_message, clear_chat_room_id, set_seen_messages })(MessagesRoom)

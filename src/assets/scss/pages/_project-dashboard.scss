@@ -39,6 +39,7 @@
             overflow: hidden;
             overflow-y: scroll;
             box-shadow:  0 0 30px rgba(0,0,0,0.15);
+            text-transform: capitalize;
             thead{
                 position: sticky;
                 top: 2px;
@@ -79,21 +80,25 @@
             .projectDashboard__Badges{
                 text-align: center;
             }
+            .projectDashboard__hired,
             .projectDashboard__Badge5{
                 .MuiSvgIcon-root{
                     fill: #009879;
                 }
             }
+            .projectDashboard__notviewed,
             .projectDashboard__Badge4{
                 .MuiSvgIcon-root{
                     fill: $blue;
                 }
             }
+            .projectDashboard__underprocess,
             .projectDashboard__Badge3{
                 .MuiSvgIcon-root{
                     fill: $yellow;
                 }
             }
+            .projectDashboard__rejected,
             .projectDashboard__Badge2{
                 .MuiSvgIcon-root{
                     fill: $red;

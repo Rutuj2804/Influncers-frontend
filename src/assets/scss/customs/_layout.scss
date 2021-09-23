@@ -13,6 +13,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(255,255,255,0.3);
     z-index: 50;
+}
+.layout__Toggle{
+    position: relative;
+    top: 80px;
+    left: 30px;
+    right: 30px;
+    width: calc(100% - 60px);
+}
+
+@media screen and (max-width: 1240px) {
+    .layout__Wrapper{
+        top: 80px;
+        left: 30px;
+        right: 30px;
+        width: calc(100% - 60px);
+    }   
+}
+
+@media screen and (max-width: 468px) {
+    .layout__Wrapper{
+        left: 5px;
+        right: 5px;
+        width: calc(100vw - 10px);
+    }  
 }

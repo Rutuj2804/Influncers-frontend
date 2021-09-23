@@ -1,17 +1,50 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AreaApexGraph from '../../components/graphs/AreaApexGraph'
-// import Paper from '../../components/commons/paper/Paper'
-// import BarGraph from '../../components/graphs/BarGraph'
-// import LineGraph from '../../components/graphs/LineGraph'
+import { fetch_applications } from '../../store/actions'
 import RankProfile from './RankProfile'
-import { ImportExportRounded, StarsRounded } from '@material-ui/icons'
+import { ImportExportRounded, FlashOnRounded } from '@material-ui/icons'
+import { connect } from 'react-redux'
+import moment from 'moment'
+import { update_application, stats_analytics, time_spend_analytics } from '../../store/actions'
+import { Tooltip } from '@material-ui/core'
 
-const Stats = () => {
+const Stats = ({ applications, fetch_applications, username, stats_analytics, dates_analytics, applications_analytics, time_spend_analytics, time_spend_data, time_spend_labels }) => {
+
+    useEffect(()=>{
+        fetch_applications()
+        stats_analytics()
+        time_spend_analytics()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const isSelectedOrRejected = list => {
+        var res;
+        list.filter(val=>{
+            if(val.applicant.username === username){
+                res = val
+            }
+            return list
+        })
+        return res
+    }
+
+    const TooltipForRow = status => {
+        if(status === 'rejected'){
+            return "Rejected"
+        } else if(status === 'underprocess'){
+            return "Under Review"
+        } else if(status === 'hired'){
+            return "Hired"
+        } else if(status === 'notviewed'){
+            return "Not Viewed"
+        }
+    }
+
     return (
         <div className="stats__Wrapper" >
             <div className="row" >
                 <div className="col-lg-9 col-md-8 col-12">
-                    <AreaApexGraph />
+                    <AreaApexGraph data={applications_analytics} labels={dates_analytics} />
                 </div>
                 <div className="col-lg-3 col-md-4 col-12">
                     <h6 className="mb-3">Top Rankers</h6>
@@ -26,75 +59,55 @@ const Stats = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Title&nbsp;<ImportExportRounded /></th>
+                                    <th>Organisation&nbsp;<ImportExportRounded /></th>
                                     <th>Requirement&nbsp;<ImportExportRounded /></th>
                                     <th>Price&nbsp;<ImportExportRounded /></th>
-                                    <th className="projectDashboard__Badges">Status</th>
+                                    <th>Status</th>
                                     <th>Applications</th>
-                                    <th>Created At&nbsp;<ImportExportRounded /></th>
+                                    <th>Applied At&nbsp;<ImportExportRounded /></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td className="projectDashboard__AvatarColumn" ><p>Singers For A Ad Film</p> <span className="projectDashboard__UserOnline"></span></td>
-                                    <td>Actor, Singer, Director</td>
-                                    <td>$3,457</td>
-                                    <td className="projectDashboard__Badges projectDashboard__Badge5" ><StarsRounded /></td>
-                                    <td>49</td>
-                                    <td>2 days ago</td>
-                                </tr>
-
-                                <tr>
-                                    <td className="projectDashboard__AvatarColumn" ><p>Singers For A Ad Film</p> <span className="projectDashboard__UserOffline"></span></td>
-                                    <td>Actor, Singer, Director</td>
-                                    <td>$3,457</td>
-                                    <td className="projectDashboard__Badges projectDashboard__Badge2" ><StarsRounded /></td>
-                                    <td>49</td>
-                                    <td>2 days ago</td>
-                                </tr>
-
-                                <tr>
-                                    <td className="projectDashboard__AvatarColumn" ><p>Singers For A Ad Film</p> <span className="projectDashboard__UserOnline"></span></td>
-                                    <td>Actor, Singer, Director</td>
-                                    <td>$3,457</td>
-                                    <td className="projectDashboard__Badges projectDashboard__Badge5" ><StarsRounded /></td>
-                                    <td>49</td>
-                                    <td>2 days ago</td>
-                                </tr>
-
-                                <tr>
-                                    <td className="projectDashboard__AvatarColumn" ><p>Singers For A Ad Film</p> <span className="projectDashboard__UserOffline"></span></td>
-                                    <td>Actor, Singer, Director</td>
-                                    <td>$3,457</td>
-                                    <td className="projectDashboard__Badges projectDashboard__Badge2" ><StarsRounded /></td>
-                                    <td>49</td>
-                                    <td>2 days ago</td>
-                                </tr>
-
-                                <tr>
-                                    <td className="projectDashboard__AvatarColumn" ><p>Singers For A Ad Film</p> <span className="projectDashboard__UserOnline"></span></td>
-                                    <td>Actor, Singer, Director</td>
-                                    <td>$3,457</td>
-                                    <td className="projectDashboard__Badges projectDashboard__Badge5" ><StarsRounded /></td>
-                                    <td>49</td>
-                                    <td>2 days ago</td>
-                                </tr>
-
-                                <tr>
-                                    <td className="projectDashboard__AvatarColumn" ><p>Singers For A Ad Film</p> <span className="projectDashboard__UserOffline"></span></td>
-                                    <td>Actor, Singer, Director</td>
-                                    <td>$3,457</td>
-                                    <td className="projectDashboard__Badges projectDashboard__Badge2" ><StarsRounded /></td>
-                                    <td>49</td>
-                                    <td>2 days ago</td>
-                                </tr>
+                                {
+                                    applications.map((val, key)=>{
+                                        const application_instance = isSelectedOrRejected(val.applications)
+                                        return  <tr key={key} >
+                                                    <td className="projectDashboard__AvatarColumn" ><p>{val.title}</p> <span className={!val.completed && !val.deleted?"projectDashboard__UserOnline":"projectDashboard__UserOffline"}></span></td>
+                                                    <td>{val.user.first_name + ' ' + val.user.last_name}</td>
+                                                    <td>${val.payment?.toLocaleString('en-US')}</td>
+                                                    <td>
+                                                        <div className={`projectDashboard__${application_instance.status}`}>
+                                                            <Tooltip title={TooltipForRow(application_instance.status)}><FlashOnRounded /></Tooltip>
+                                                        </div>
+                                                    </td>
+                                                    <td>{val.applications.length}</td>
+                                                    <td>{moment(val.applications.created_at).fromNow()}</td>
+                                                </tr>
+                                    })
+                                }
+                                
+                                
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div className="col-lg-6 col-md-8 col-12">
+                    <AreaApexGraph data={time_spend_data} labels={time_spend_labels} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default Stats
+const mapStateToProps = state => ({
+    applications: state.Stats.applications,
+    username: state.Login.username,
+    error: state.Stats.error,
+    success: state.Stats.success,
+    dates_analytics: state.Stats.dates_analytics,
+    applications_analytics: state.Stats.applications_analytics,
+    time_spend_labels: state.Stats.time_spend_labels,
+    time_spend_data: state.Stats.time_spend_data,
+})
+
+export default connect(mapStateToProps, { fetch_applications, update_application, stats_analytics, time_spend_analytics })(Stats)

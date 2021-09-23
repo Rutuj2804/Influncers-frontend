@@ -5,6 +5,9 @@ import Loading from "./loading/reducers"
 import Home from "./home/reducers"
 import Messages from "./message/reducers"
 import Notifications from "./notifications/reducers"
+import DetailView from "./detail-views/reducers"
+import Stats from "./stats/reducers"
+import FindPeople from "./find/reducers"
 
 const rootReducer = combineReducers({
     Login,
@@ -12,7 +15,10 @@ const rootReducer = combineReducers({
     Messages,
     Dashboard,
     Loading,
-    Notifications
+    Notifications,
+    DetailView,
+    Stats,
+    FindPeople
 })
   
 export default rootReducer

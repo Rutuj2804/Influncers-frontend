@@ -1,0 +1,157 @@
+.viewResume__Wrapper{
+    padding-top: 30px;
+    max-width: 1000px;
+    margin: auto;
+    .viewResume__Header{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        .viewResume__HeaderLeft{
+            display: flex;
+            align-items: center;
+            img{
+                height: 200px;
+                width: 200px;
+                border-radius: 10px;
+            }
+            .viewResume__ShortBio{
+                margin-left: 20px;
+                h2{
+                    font-weight: 300;
+                }
+                h6{
+                    span{
+                        color: rgb(170, 167, 167);
+                    }
+                }
+                .viewResume__Grading{
+                    display: flex;
+                    align-items: center;
+                    .viewResume__Points{
+                        display: flex;
+                        align-items: center;
+                        margin-right: 10px;
+                        .MuiSvgIcon-root{
+                            fill: $secondary;
+                        }
+                        div .MuiSvgIcon-root{
+                            padding-top: 4px;
+                            fill: $yellow;
+                        }
+                    }
+                }
+            }
+        }
+        .viewResume__HeaderRight{
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            button{
+                background-color: $secondary;
+                color: $white;
+                margin-right: 10px;
+            }
+        }
+    }
+    .viewResume__MiddleTop{
+        .viewResume__Description{
+            margin: 30px 0;
+            h4{
+                margin-bottom: 10px;
+            }
+        }
+        .viewResume__TraningAndCertification{
+            margin: 30px 0;
+            table{
+                width: 100%;
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 14px;
+                font-weight: 500;
+                min-width: 400px;
+                max-height: 90vh;
+                border-radius: 5px 5px;
+                overflow: hidden;
+                overflow-y: scroll;
+                box-shadow:  0 0 30px rgba(0,0,0,0.15);
+                thead{
+                    z-index: 10;
+                }
+                thead tr{
+                    background-color: $secondary;
+                    color: $white;
+                    text-align: left;
+                    font-weight: bold;
+                }
+                th, td{
+                    padding: 12px 15px;
+                }
+                .MuiSvgIcon-root{
+                    fill: $secondary!important;
+                }
+                tbody tr{
+                    border-bottom: 1px solid #ddd;
+                }
+                tbody tr:nth-last-of-type(even){
+                    background-color: #f3f3f3;
+                }
+                tbody tr:last-of-type{
+                    border-bottom: 2px solid #009879;
+                }
+            }
+        }
+    }
+    .viewResume__MiddleBottom{
+        margin: 30px 0;
+        .viewResume__MiddleBottomWork{
+            
+        }
+        .viewResume__Education{
+            table{
+                width: 100%;
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 14px;
+                font-weight: 500;
+                min-width: 400px;
+                max-height: 90vh;
+                border-radius: 5px 5px;
+                overflow: hidden;
+                overflow-y: scroll;
+                box-shadow:  0 0 30px rgba(0,0,0,0.15);
+                thead{
+                    z-index: 10;
+                }
+                thead tr{
+                    background-color: $secondary;
+                    color: $white;
+                    text-align: left;
+                    font-weight: bold;
+                }
+                th, td{
+                    padding: 12px 15px;
+                }
+                .MuiSvgIcon-root{
+                    fill: $secondary!important;
+                }
+                tbody tr{
+                    border-bottom: 1px solid #ddd;
+                }
+                tbody tr:nth-last-of-type(even){
+                    background-color: #f3f3f3;
+                }
+                tbody tr:last-of-type{
+                    border-bottom: 2px solid #009879;
+                }
+            }
+        }
+        .viewResume__MiddleBottomProfesional{
+            .viewResume__Starts{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+            }
+        }
+    }
+}

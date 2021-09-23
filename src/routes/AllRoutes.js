@@ -14,6 +14,7 @@ import Profile from "../pages/profile/Profile"
 import EditProfile from "../pages/profile/EditProfile"
 import EditResume from "../pages/profile/EditResume"
 import ViewProfile from "../pages/profile/ViewProfile"
+import ViewResume from "../pages/profile/ViewResume"
 
 // Find people
 import FindPeople from "../pages/findPeople/FindPeople"
@@ -59,6 +60,7 @@ const userRoutes = [
     { path: "/edit-profile", component: EditProfile },
     { path: "/c/@:username", component: ViewProfile },
     { path: "/edit-resume", component: EditResume },
+    { path: "/view-resume", component: ViewResume },
 
     // Find People
     { path: "/find", component: FindPeople },

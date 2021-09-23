@@ -2,11 +2,13 @@ import { Button, IconButton } from '@material-ui/core'
 import { BookmarkRounded, CheckRounded, LocationOnRounded, ShareRounded, SubjectRounded, TrackChangesRounded, VideocamRounded, WorkRounded } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
 import image from '../../assets/images/image.jpg'
-import { fetch_detail_view_of_listing } from '../../store/actions'
+import { fetch_detail_view_of_listing, remove_messages, apply_for_listing } from '../../store/actions'
 import Paper from '../../components/commons/paper/Paper'
 import { connect } from 'react-redux'
+import SuccessPopup from '../../components/popups/success/SuccessPopup'
+import ErrorPopup from '../../components/popups/error/ErrorPopup'
 
-const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing, loading }) => {
+const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing, success, error, remove_messages, apply_for_listing }) => {
 
     const [ formData, setFormData ] = useState({
         photo: image,
@@ -21,6 +23,8 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
         target: '',
         positions: '',
         description: '',
+        completed:false,
+        deleted:false,
         work_description: [],
         reward: [],
         requirements: [],
@@ -35,7 +39,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
 
     useEffect(()=>{
         setFormData({
-            photo: single_listing.user?.photo?single_listing.user.photo:image,
+            photo: single_listing.user?.photo?`${process.env.REACT_APP_API_URL}${single_listing.user.photo}`:image,
             first_name: single_listing.user?.first_name,
             last_name: single_listing.user?.last_name,
             title: single_listing.title,
@@ -47,6 +51,8 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
             target: single_listing.target,
             positions: single_listing.positions,
             description: single_listing.description,
+            completed: single_listing.completed,
+            deleted: single_listing.deleted,
             work_description: single_listing.work_description,
             reward: single_listing.reward,
             requirements: single_listing.requirements,
@@ -54,7 +60,6 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
     }, [single_listing])
 
     return (
-    !loading ?
         <div className="listingDetailPage__Wrapper">
             <div className="listingDetailPage__Header">
                 <div className="listingDetailPage__HeaderLeft">
@@ -150,16 +155,24 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
                         </div>
                 </div>
                 <div className="listingDetailPage__Apply">
-                    <Button>Apply</Button>
+                    <Button disabled={formData.completed || formData.deleted} onClick={()=>apply_for_listing(id)}>{formData.completed || formData.deleted?"Hiring is completed": "Apply"}</Button>
                 </div>
             </div>
-        </div>: null
+            {success ? <div className="successAndError__Popup">
+                <SuccessPopup continueFun={remove_messages} message={success} path="/home" />
+            </div> : null}
+            {error ? <div className="successAndError__Popup">
+                <ErrorPopup continueFun={remove_messages} message={error} path={`/listing/${id}`}/>
+            </div> : null}
+        </div>
     )
 }
 
 const mapStateToProps = state =>({
     single_listing: state.Home.single_listing,
-    loading: state.Loading.loading
+    loading: state.Loading.loading,
+    success: state.DetailView.success,
+    error: state.DetailView.error,
 })
 
-export default connect(mapStateToProps, { fetch_detail_view_of_listing })(ListingDetailPage)
+export default connect(mapStateToProps, { fetch_detail_view_of_listing, remove_messages, apply_for_listing })(ListingDetailPage)

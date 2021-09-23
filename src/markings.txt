@@ -1,0 +1,17 @@
+Listings
+-> create listing: 2
+-> on delete: -2
+-> hired: 10
+
+Hiring in project
+-> on application: 4
+-> on hired: 10
+-> on review: 0
+-> on reject: 0
+
+Badges
+-> <100 : 1
+-> 100< && <300: 2
+-> 200< && <500: 3
+-> 500< && <1000: 4
+-> >1000: 5

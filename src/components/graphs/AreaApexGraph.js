@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactApexChart from 'react-apexcharts'
 
-const AreaApexGraph = () => {
+const AreaApexGraph = ({ data=[9000,9500,10000,12000,15000,16000,20000,27000], labels=['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007'] }) => {
 
     const state = {
           
         series: [{
           name: "STOCK ABC",
-          data: [9000,9500,10000,12000,15000,16000,20000,27000]
+          data: data
         }],
         options: {
           chart: {
@@ -36,7 +36,7 @@ const AreaApexGraph = () => {
             text: 'Price Movements',
             align: 'left'
           },
-          labels: ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007'],
+          labels: labels,
           xaxis: {
             type: 'datetime',
           },

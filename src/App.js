@@ -4,12 +4,12 @@ import { authRoutes, userRoutes } from './routes/AllRoutes'
 import Authmiddleware from './routes/AuthMiddleware'
 import "./assets/scss/app.scss"
 import Layout from './hocs/Layout'
-import { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms } from "./store/actions"
+import { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms, send_time_spend } from "./store/actions"
 import NonAuthLayout from './hocs/NonAuthLayout'
 import { connect } from 'react-redux'
 import { SocketContext } from './store/socket/context'
 
-const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAuthenticated, fetch_rooms, chat_rooms }) => {
+const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAuthenticated, fetch_rooms, chat_rooms, username, send_time_spend }) => {
 
     const socket = useContext(SocketContext)
 
@@ -23,14 +23,47 @@ const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAu
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[isAuthenticated])
 
+    useEffect(() => {
+
+        const startDate = new Date()
+
+        window.addEventListener('beforeunload', ()=>{
+            const endDate = new Date();
+            const timeSpend = endDate - startDate;
+            send_time_spend(timeSpend)
+        } );
+
+        return function cleanup() {
+            window.removeEventListener('beforeunload', ()=>{
+                const endDate = new Date();
+                const timeSpend = endDate - startDate;
+                send_time_spend(timeSpend)
+            } );
+        } 
+    },[]);
+
     useEffect(()=>{
         chat_rooms.map((val) => {
             socket.emit('join-room', val.id)
         })
-    }, [chat_rooms])
+    }, [chat_rooms, socket])
+
+    socket.on('recieve-notifications', data=>{
+        fetch_unseen_notifications()
+    })
+
+    useEffect(()=>{
+        if(username) socket.emit('user-join', username)
+    }, [socket, username])
+
+    useEffect(()=>{
+        if(localStorage.getItem('theme-dark')){
+            document.body.classList.add('dark')
+        }
+    })
 
     return (
-        <div>
+        <div className="app">
         <BrowserRouter>
             <Switch>
                 {authRoutes.map((route, idx)=>{
@@ -61,6 +94,7 @@ const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAu
 const mapStateToProps = state => ({
     isAuthenticated: state.Login.isAuthenticated,
     chat_rooms: state.Messages.chat_rooms,
+    username: state.Login.username,
 })
 
-export default connect(mapStateToProps, { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms })(App)
+export default connect(mapStateToProps, { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms, send_time_spend })(App)
