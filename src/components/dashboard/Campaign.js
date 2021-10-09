@@ -10,7 +10,7 @@ const Campaign = ({ title, requirements, views, bids, price, type, time, id, com
         <div className="campaign__Wrapper" onClick={()=>history.push(`/project/${id}`)} >
             <div className="campaign__Left">
                 <div className="campaign__ListingDetails" >
-                    <h6>{title}<div className={completed || deleted?"campaign__Offline":"campaign__Online"}></div></h6>
+                    <h6><span>{title}</span><div className={completed || deleted?"campaign__Offline":"campaign__Online"}></div></h6>
                     <p>{requirements.map((val,key)=>{
                             if(key===2){
                                 return `${val.name} `

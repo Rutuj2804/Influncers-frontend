@@ -2,7 +2,8 @@ import {
     FETCH_UNSEEN_NOTIFICATIONS_FAIL,
     FETCH_UNSEEN_NOTIFICATIONS_SUCCESS,
     FETCH_NOTIFICATIONS_SUCCESS,
-    FETCH_NOTIFICATIONS_FAIL
+    FETCH_NOTIFICATIONS_FAIL,
+    RECIEVED_UNSEEN_NOTIFICATION_FROM_SOCKET
 } from './types'
 
 const initialState = {
@@ -31,6 +32,11 @@ const Notifications = (state=initialState, action) => {
             return {
                 ...state,
                 error: payload
+            }
+        case RECIEVED_UNSEEN_NOTIFICATION_FROM_SOCKET:
+            return {
+                ...state,
+                notifications_unseen: [ ...state.notifications_unseen, payload ]
             }
         default:
             return state;

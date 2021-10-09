@@ -2,7 +2,8 @@ import {
     FETCH_NOTIFICATIONS_FAIL,
     FETCH_NOTIFICATIONS_SUCCESS,
     FETCH_UNSEEN_NOTIFICATIONS_SUCCESS,
-    FETCH_UNSEEN_NOTIFICATIONS_FAIL
+    FETCH_UNSEEN_NOTIFICATIONS_FAIL,
+    RECIEVED_UNSEEN_NOTIFICATION_FROM_SOCKET
 } from './types'
 import axios from 'axios'
 import { loading_starts, loading_stops } from '../actions'
@@ -86,4 +87,11 @@ export const set_seen_notifications = () => async dispatch =>{
         
     }
 
+}
+
+export const unseen_notification_from_socket = (data) => async dispatch => {
+    dispatch({
+        type: RECIEVED_UNSEEN_NOTIFICATION_FROM_SOCKET,
+        payload: data
+    })
 }

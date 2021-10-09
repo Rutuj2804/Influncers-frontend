@@ -6,6 +6,7 @@
     position: relative;
     cursor: pointer;
     overflow: hidden;
+    text-transform: capitalize;
     .rankProfile__Upper{
         display: flex;
         justify-content: space-between;
@@ -16,6 +17,8 @@
             .rankProfile__User{
                 display: flex;
                 align-items: center;
+                position: relative;
+                z-index: 2;
                 .rankProfile__UserDetails{
                     margin-left: 10px;
                     h6{
@@ -58,5 +61,73 @@
         right: 30%;
         font-size: 50px;
         color: #efefef;
+        z-index: 1;
+    }
+}
+
+.dark .rankProfile__Wrapper{
+    padding: 10px 15px;
+    background-color: $dark-primary;
+    color: $light;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    .rankProfile__Upper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .rankProfile__Left{
+            display: flex;
+            flex-direction: column;
+            .rankProfile__User{
+                display: flex;
+                align-items: center;
+                position: relative;
+                z-index: 2;
+                .rankProfile__UserDetails{
+                    margin-left: 10px;
+                    h6{
+                        font-size: 14px;
+                        margin: 0%;
+                    }
+                    p{
+                        font-size: 12px;
+                        margin: 0%;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        .rankProfile__Right{
+            height: 30px;
+            width: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $green;
+            border-radius: 50%;
+            color: $white;
+        }
+        &:hover::before{
+            content: '';
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            height: 100%;
+            width: 5px;
+            background-color: $secondary;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
+    .rankProfile__Background{
+        position: absolute;
+        top: 0%;
+        right: 30%;
+        font-size: 50px;
+        color: #413f3f;
+        z-index: 1;
     }
 }

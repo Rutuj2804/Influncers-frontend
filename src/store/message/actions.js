@@ -7,7 +7,7 @@ import {
     FETCH_CHAT_ROOMS_FAIL,
     CREATE_CHAT_ROOM_SUCCESS,
     CREATE_CHAT_ROOM_FAIL,
-    CLEAR_CHAT_ROOM_ID
+    CLEAR_CHAT_ROOM_ID,
 } from "./types"
 import axios from "axios"
 import { loading_starts, loading_stops } from '../loading/actions'

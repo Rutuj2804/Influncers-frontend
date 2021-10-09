@@ -26,13 +26,13 @@
             margin-bottom: 20px;
             input, textarea, select{
                 border-radius: 5px;
-                border: 1px solid #ccc;
                 outline: none;
                 width: 100%;
                 padding: 5px 0px;
                 padding-left: 45px;
                 font-size: 16px;
-                resize: none;
+                border: 1px solid #707070;
+                // resize: none;
             }
             label{
                 position: absolute;
@@ -75,8 +75,139 @@
                     background-color: transparent!important;
                     color: #000;
                 }
+                .addCollaboration__TickDiv{
+                    margin: 0%;
+                    p{
+                        margin: 0;
+                    }
+                    .MuiSvgIcon-root{
+                        color: $green;
+                        margin-right: 7px;
+                    }
+                }
+            }
+        }
+        .editProfile__AdditionInputDiv{
+            .editProfile__LinkFormDiv{
+                position: relative;
+                margin-bottom: 20px;
+                input{
+                    border-radius: 5px;
+                    border: 1px solid #ccc;
+                    outline: none;
+                    width: 100%;
+                    padding: 5px 0px;
+                    padding-left: 45px;
+                    font-size: 16px;
+                }
+                label{
+                    position: absolute;
+                    top: 5px;
+                    left: 10px;
+                }
+            }
+        }
+        .addCollaboration__FormButtons{
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 0;
+        }
+    }
+}
+
+.dark .addCollaboration__Wrapper{
+    padding: 20px;
+    width: 900px;
+    max-height: 90vh;
+    overflow-y: scroll;
+    color: $light;
+    &::-webkit-scrollbar{
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: $secondary-light;
+        border-radius: 5px;
+    }
+    .addCollaboration__Header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .addCollaboration__Form{
+        margin: 10px 0;
+        button{
+            background-color: $dark-secondary;
+            color: #fff;
+        }
+        .editProfile__AdditionInputDiv{
+            input{
+                background-color: $dark-primary;
+                border: none!important;
+                color: $light!important;
+            }
+        }
+        .addCollaboration__InputDiv{
+            position: relative;
+            margin-bottom: 20px;
+            input, textarea, select{
+                border-radius: 5px;
+                outline: none;
+                width: 100%;
+                padding: 5px 0px;
+                padding-left: 45px;
+                background-color: $dark-primary;
+                color: $light;
+                font-size: 16px;
+                resize: none;
+            }
+            label{
+                position: absolute;
+                top: 5px;
+                left: 10px;
+                color: $light;
+            }
+        }
+        .addCollaboration__SkillWrapper{
+            display: flex;
+            div{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                padding: 0% 7px;
+                border-radius: 10px;
+                margin-right: 5px;
+                background-color: $dark-secondary;
+                width: auto;
+                button{
+                    background-color: transparent!important;
+                    color: $light;
+                }
                 p{
                     margin: 0%;
+                }
+            }
+        }
+        .addCollaboration__WorkDescription{
+            div{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0% 7px;
+                border-radius: 10px;
+                margin: 5px 0;
+                background-color: $dark-secondary;
+                width: auto;
+                button{
+                    background-color: transparent!important;
+                    color: $light;
+                }
+                .addCollaboration__TickDiv{
+                    margin: 0%;
+                    .MuiSvgIcon-root{
+                        color: $green;
+                        margin-right: 7px;
+                    }
                 }
             }
         }

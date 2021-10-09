@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 
-const AreaApexGraph = ({ data=[9000,9500,10000,12000,15000,16000,20000,27000], labels=['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007'] }) => {
+const AreaApexGraph = ({ data=[9000,9500,10000,12000,15000,16000,20000,27000], labels=['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007'], title='Fundamental Analysis of Stocks', subtitle="Time Spent" }) => {
+
+  const [ themeColor, setThemeColor ] = useState()
+
+  useEffect(()=>{
+    if(localStorage.getItem('theme') === 'dark'){
+      setThemeColor('#fff')
+    } else {
+      setThemeColor('#000')
+    }
+  } ,[])
 
     const state = {
           
         series: [{
-          name: "STOCK ABC",
+          name: subtitle,
           data: data
         }],
         options: {
@@ -29,22 +39,41 @@ const AreaApexGraph = ({ data=[9000,9500,10000,12000,15000,16000,20000,27000], l
           },
           
           title: {
-            text: 'Fundamental Analysis of Stocks',
-            align: 'left'
+            text: title,
+            align: 'left',
+            style: {
+              color: themeColor
+            }
           },
           subtitle: {
-            text: 'Price Movements',
-            align: 'left'
+            text: subtitle,
+            align: 'left',
+            style: {
+              color: themeColor
+            }
           },
           labels: labels,
           xaxis: {
             type: 'datetime',
+            labels: {
+              style: {
+                colors: [themeColor]
+              }
+            },
           },
           yaxis: {
-            opposite: false
+            opposite: false,
+            labels:{
+              style: {
+                colors: [themeColor]
+              }
+            }
           },
           legend: {
-            horizontalAlign: 'left'
+            horizontalAlign: 'left',
+            labels: {
+              colors: [themeColor]
+            }
           }
         },
       

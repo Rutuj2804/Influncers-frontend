@@ -9,7 +9,7 @@ const Settings = () => {
 
     const handleDarkModeChange = (val) => {
         setDarkMode(val)
-        localStorage.setItem('theme-dark', val)
+        localStorage.setItem('theme', val?'dark': 'light')
         if(val){
             document.body.classList.add('dark')
         } else {
@@ -18,8 +18,10 @@ const Settings = () => {
     } 
 
     useEffect(()=>{
-        if(localStorage.getItem('theme-dark')){
+        if(localStorage.getItem('theme') === 'dark'){
             setDarkMode(true);
+        } else {
+            setDarkMode(false);
         }
     }, [])
 
@@ -59,7 +61,7 @@ const Settings = () => {
                                 <div className="settings__StatusDesc">
                                     <TouchAppRounded fontSize="large" />
                                     <div className="settings__StatusName" >
-                                        <h6>Manage rounded</h6>
+                                        <h6>Manage account</h6>
                                         <p>Change visibility of your account</p>
                                     </div>
                                 </div>
@@ -95,7 +97,7 @@ const Settings = () => {
                                 <div className="settings__StatusDesc">
                                     <TouchAppRounded fontSize="large" />
                                     <div className="settings__StatusName" >
-                                        <h6>Manage rounded</h6>
+                                        <h6>Manage account</h6>
                                         <p>Change visibility of your account</p>
                                     </div>
                                 </div>
@@ -124,7 +126,7 @@ const Settings = () => {
                                 <div className="settings__StatusDesc">
                                     <TouchAppRounded fontSize="large" />
                                     <div className="settings__StatusName" >
-                                        <h6>Manage rounded</h6>
+                                        <h6>Manage account</h6>
                                         <p>Change visibility of your account</p>
                                     </div>
                                 </div>
@@ -150,7 +152,7 @@ const Settings = () => {
                                 <div className="settings__StatusDesc">
                                     <TouchAppRounded fontSize="large" />
                                     <div className="settings__StatusName" >
-                                        <h6>Manage rounded</h6>
+                                        <h6>Manage account</h6>
                                         <p>Change visibility of your account</p>
                                     </div>
                                 </div>

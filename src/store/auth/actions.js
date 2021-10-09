@@ -15,7 +15,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL
 } from "./types"
-import { loading_starts, loading_stops } from '../actions'
+import { loading_starts, loading_stops, send_status_update } from '../actions'
 
 export const login_user = ({ username, password }) => async dispatch =>{
 
@@ -209,8 +209,8 @@ export const logout_user = () => async dispatch =>{
 
     try {
     
+        await dispatch(send_status_update('offline'))
         localStorage.removeItem("token")
-
         dispatch({
             type: LOGOUT_USER_SUCCESS
         })

@@ -83,7 +83,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
                         </IconButton>
                     </div>
                     <div className="listingDetailPage__Rate">
-                        <span>${formData.payment}&nbsp;</span><p>/video</p>
+                        <span>${formData.payment}&nbsp;</span><p>/{formData.type}</p>
                     </div>
                 </div>
             </div>

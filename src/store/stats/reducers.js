@@ -3,7 +3,9 @@ import {
     FETCH_MY_APPLICATIONS_FAIL,
     FETCH_ANALYTICS_DATA_SUCCESS,
     FETCH_ANALYTICS_DATA_FAIL,
-    FETCH_TIME_SPEND_ON_WEBSITE_SUCCESS
+    FETCH_TIME_SPEND_ON_WEBSITE_SUCCESS,
+    FETCH_TOP_PERFORMERS_SUCCESS,
+    FETCH_TOP_PERFORMERS_FAIL
 } from "./types"
   
 const initialState = {
@@ -12,6 +14,7 @@ const initialState = {
     applications_analytics: [],
     time_spend_labels: [],
     time_spend_data: [],
+    top_performers: [],
     success: '',
     error: ''
 }
@@ -38,6 +41,12 @@ const stats = (state = initialState, action) => {
                 time_spend_labels: payload.dates,
                 time_spend_data: payload.time
             }
+        case FETCH_TOP_PERFORMERS_SUCCESS:
+            return {
+                ...state,
+                top_performers: payload
+            }
+        case FETCH_TOP_PERFORMERS_FAIL:
         case FETCH_ANALYTICS_DATA_FAIL:
         case FETCH_MY_APPLICATIONS_FAIL:
         default:

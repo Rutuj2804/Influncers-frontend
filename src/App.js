@@ -4,12 +4,12 @@ import { authRoutes, userRoutes } from './routes/AllRoutes'
 import Authmiddleware from './routes/AuthMiddleware'
 import "./assets/scss/app.scss"
 import Layout from './hocs/Layout'
-import { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms, send_time_spend } from "./store/actions"
+import { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms, send_time_spend, send_status_update } from "./store/actions"
 import NonAuthLayout from './hocs/NonAuthLayout'
 import { connect } from 'react-redux'
 import { SocketContext } from './store/socket/context'
 
-const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAuthenticated, fetch_rooms, chat_rooms, username, send_time_spend }) => {
+const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAuthenticated, fetch_rooms, chat_rooms, username, send_time_spend, send_status_update }) => {
 
     const socket = useContext(SocketContext)
 
@@ -31,6 +31,7 @@ const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAu
             const endDate = new Date();
             const timeSpend = endDate - startDate;
             send_time_spend(timeSpend)
+            send_status_update('offline')
         } );
 
         return function cleanup() {
@@ -38,9 +39,27 @@ const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAu
                 const endDate = new Date();
                 const timeSpend = endDate - startDate;
                 send_time_spend(timeSpend)
+                send_status_update('offline')
             } );
         } 
     },[]);
+
+    useEffect(() => {
+
+        window.addEventListener('onload', ()=>{
+            send_status_update('online')
+        } );
+
+        return function cleanup() {
+            window.removeEventListener('onload', ()=>{
+                send_status_update('online')
+            } );
+        } 
+    },[]);
+
+    useEffect(() => {
+        if(username) send_status_update('online')
+    },[username]);
 
     useEffect(()=>{
         chat_rooms.map((val) => {
@@ -48,17 +67,15 @@ const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAu
         })
     }, [chat_rooms, socket])
 
-    socket.on('recieve-notifications', data=>{
-        fetch_unseen_notifications()
-    })
-
     useEffect(()=>{
         if(username) socket.emit('user-join', username)
     }, [socket, username])
 
     useEffect(()=>{
-        if(localStorage.getItem('theme-dark')){
+        if(localStorage.getItem('theme') === 'dark'){
             document.body.classList.add('dark')
+        } else if(!localStorage.getItem('theme')){
+            localStorage.setItem('theme','light')
         }
     })
 
@@ -97,4 +114,4 @@ const mapStateToProps = state => ({
     username: state.Login.username,
 })
 
-export default connect(mapStateToProps, { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms, send_time_spend })(App)
+export default connect(mapStateToProps, { load_user, check_authentication, fetch_unseen_notifications, fetch_rooms, send_time_spend, send_status_update })(App)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import ContactElement from './ContactElement'
 import { fetch_rooms } from '../../store/actions'
 import moment from 'moment'
+import { Alert } from '@material-ui/lab'
 
 const Message = ({ chat_rooms, username, fetch_rooms }) => {
 
@@ -30,7 +31,7 @@ const Message = ({ chat_rooms, username, fetch_rooms }) => {
                             <h4>Inbox</h4>
                         </div>
                         <div className="message__Contacts">
-                            {chat_rooms.map((val, key)=>{
+                            {chat_rooms.length > 0 && chat_rooms.map((val, key)=>{
                                 const user = returnChatNameOfOppositeUser(val.users)
                                 return <ContactElement 
                                     key={key}
@@ -42,13 +43,14 @@ const Message = ({ chat_rooms, username, fetch_rooms }) => {
                                     roomId={val.id}
                                 />
                             })}
+                            {chat_rooms.length === 0 && <Alert icon={false} className="justify-content-center">Create new contacts to chat</Alert>}
                         </div>
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-12">
-                    <div className="message__ConversationDiv">
+                    {/* <div className="message__ConversationDiv">
                         
-                    </div>
+                    </div> */}
                 </div>
                 <div className="col-lg-3 col-md-3 col-12">
                     

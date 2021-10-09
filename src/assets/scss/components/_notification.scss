@@ -52,3 +52,36 @@
 .notification__OpenPage{
     width: 350px;
 }
+
+.dark .notification__Wrapper{
+    .notification__Left{
+        display: flex;
+        align-items: center;
+        .notification__UserDetail{
+            display: flex;
+            flex-direction: column;
+            margin-left: 5px;
+            p{
+                margin: 0%;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            span{
+                font-size: 12px;
+                span{
+                    color: $secondary-light;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+    .notification__Right{
+        text-transform: lowercase;
+        p{
+            margin: 0%;
+            font-size: 12px;
+            font-weight: 400;
+            color: $light;
+        }
+    }
+}

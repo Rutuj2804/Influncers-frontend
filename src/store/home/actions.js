@@ -109,3 +109,18 @@ export const remove_messages_from_home = () => async dispatch =>{
     })
     
 }
+
+export const send_status_update = (status) => async dispatch =>{
+
+    const config = {
+        headers: {
+            "Content-type": "Application/json",
+            "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+    }
+
+    const body = JSON.stringify({ status })
+
+    await axios.post(`${process.env.REACT_APP_API_URL}/accounts/status/`, body, config)
+    
+}

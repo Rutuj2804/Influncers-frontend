@@ -13,6 +13,7 @@
             overflow: hidden;
             overflow-y: scroll;
             box-shadow:  0 0 30px rgba(0,0,0,0.15);
+            color: inherit;
             thead{
                 position: sticky;
                 top: 2px;
@@ -90,8 +91,106 @@
                 border-bottom: 1px solid #ddd;
                 cursor: pointer;
             }
-            tbody tr:nth-last-of-type(even){
-                background-color: #f3f3f3;
+            tbody tr:last-of-type{
+                border-bottom: 2px solid #009879;
+            }
+        }
+    }
+}
+
+.dark .dashboard__Wrapper{
+    .dashboard__Table{
+        width: 100%;
+        color: $light;
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 400px;
+            max-height: 90vh;
+            border-radius: 5px 5px;
+            overflow: hidden;
+            overflow-y: scroll;
+            box-shadow:  0 0 30px rgba(0,0,0,0.15);
+            color: inherit;
+            thead{
+                position: sticky;
+                top: 2px;
+                left: inherit;
+                z-index: 10;
+            }
+            thead tr{
+                background-color: #009879;
+                color: $white;
+                text-align: left;
+                font-weight: bold;
+            }
+            th, td{
+                padding: 12px 15px;
+            }
+            .projectDashboard__AvatarColumn{
+                display: flex;
+                align-items: center;
+                p{
+                    margin: 0%;
+                    margin-left: 7px;
+                }
+                .projectDashboard__UserOnline{
+                    height: 10px;
+                    width: 10px;
+                    background-color: #009879;
+                    border-radius: 50%;
+                    margin-left: 7px;
+                }
+                .projectDashboard__UserOffline{
+                    height: 10px;
+                    width: 10px;
+                    background-color: $red;
+                    border-radius: 50%;
+                    margin-left: 7px;
+                }
+            }
+            .projectDashboard__Badges{
+                text-align: center;
+            }
+            .projectDashboard__Badge5{
+                .MuiSvgIcon-root{
+                    fill: #009879;
+                }
+            }
+            .projectDashboard__Badge4{
+                .MuiSvgIcon-root{
+                    fill: $blue;
+                }
+            }
+            .projectDashboard__Badge3{
+                .MuiSvgIcon-root{
+                    fill: $yellow;
+                }
+            }
+            .projectDashboard__Badge2{
+                .MuiSvgIcon-root{
+                    fill: $red;
+                }
+            }
+            button{
+                color: #1f5948;
+                font-size: 12px;
+                border-radius: 20px;
+                background-color: #c4f8e5;
+                font-weight: 500;
+                // #863d3f red
+                // #fce8e8
+            }
+            .projectDashboard__ButtonOffline button{
+                color: #863d3f;
+                background-color: #fce8e8;
+            }
+            tbody tr{
+                border-bottom: 1px solid #ddd;
+                cursor: pointer;
             }
             tbody tr:last-of-type{
                 border-bottom: 2px solid #009879;

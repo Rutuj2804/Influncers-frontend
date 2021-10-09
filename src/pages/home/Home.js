@@ -4,6 +4,7 @@ import { LocationOnRounded, SearchRounded } from '@material-ui/icons'
 import { fetch_listings, filter_listings } from '../../store/actions'
 import { connect } from 'react-redux'
 import { Button } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 
 const Home = ({ fetch_listings, listings, filter_listings }) => {
 
@@ -31,7 +32,7 @@ const Home = ({ fetch_listings, listings, filter_listings }) => {
     }
 
     return (
-        <div className="home__Wrapper">
+        <div className="home__Wrapper pt-3">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-3 col-md-3 col-12 globalDivDisplayNone">
@@ -132,7 +133,7 @@ const Home = ({ fetch_listings, listings, filter_listings }) => {
                                         views={val.views.length}
                                         applications={val.applications.length}
                                         price={val.payment}
-                                        price_on={'video'}
+                                        price_on={val.type}
                                         type={val.type}
                                         datetime={val.created_at}
                                         place={val.place}
@@ -140,6 +141,7 @@ const Home = ({ fetch_listings, listings, filter_listings }) => {
                                         positions={val.positions}
                                     />
                         })}
+                        {listings.length === 0 && <Alert icon={false} className="justify-content-center">No Listings Found</Alert>}
                     </div>
                     <div className="col-lg-3 col-md-3 col-12 globalDivDisplayNone">
                         

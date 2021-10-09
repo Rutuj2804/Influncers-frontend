@@ -4,7 +4,9 @@ import {
     FETCH_ANALYTICS_DATA_SUCCESS,
     FETCH_ANALYTICS_DATA_FAIL,
     FETCH_TIME_SPEND_ON_WEBSITE_SUCCESS,
-    FETCH_TIME_SPEND_ON_WEBSITE_FAIL
+    FETCH_TIME_SPEND_ON_WEBSITE_FAIL,
+    FETCH_TOP_PERFORMERS_SUCCESS,
+    FETCH_TOP_PERFORMERS_FAIL
 } from "./types"
 import axios from "axios"
 import { loading_starts, loading_stops } from '../loading/actions'
@@ -94,6 +96,36 @@ export const time_spend_analytics = () => async dispatch =>{
     } catch (error) {
         dispatch({
             type: FETCH_TIME_SPEND_ON_WEBSITE_FAIL
+        })
+    }
+
+    dispatch(loading_stops())
+    
+}
+
+export const top_performers = () => async dispatch =>{
+
+    dispatch(loading_starts())
+
+    const config = {
+        headers: {
+            "Content-type": "Application/json",
+            "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+    }
+
+    try {
+    
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/top/`, config)
+
+        dispatch({
+            type: FETCH_TOP_PERFORMERS_SUCCESS,
+            payload: res.data.rankers
+        })
+
+    } catch (error) {
+        dispatch({
+            type: FETCH_TOP_PERFORMERS_FAIL
         })
     }
 

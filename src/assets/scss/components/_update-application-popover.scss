@@ -80,3 +80,17 @@
         }
     }
 }
+
+
+.dark .updateApplication__Wrapper{
+    width: 350px;
+    padding: 20px;
+    background-color: $dark-primary;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    color:$light;
+    .updateApplication__Header{
+        button{
+            color: $light;
+        }
+    }
+}

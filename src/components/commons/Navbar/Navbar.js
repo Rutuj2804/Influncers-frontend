@@ -1,17 +1,18 @@
 import { Badge, IconButton } from '@material-ui/core'
 import { ChevronRightRounded, EditRounded, NotificationsRounded, AddRounded, PersonRounded, PowerSettingsNewRounded, SearchRounded, SettingsRounded, SubjectRounded, NotesRounded, DescriptionRounded, ContactSupportRounded, FullscreenRounded } from '@material-ui/icons'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import Notification from './Notification'
 import ProfileNavigation from './ProfileNavigation'
 import image from '../../../assets/images/image.jpg'
 import { useHistory } from 'react-router-dom'
-import { logout_user, set_seen_notifications } from '../../../store/actions'
+import { logout_user, set_seen_notifications, unseen_notification_from_socket } from '../../../store/actions'
 import AddComponent from './AddComponent'
 import AddCollaboratiion from '../../popups/add/AddCollaboratiion'
 import { connect } from 'react-redux'
+import { SocketContext } from '../../../store/socket/context'
 import moment from 'moment'
 
-const Navbar = ({ logout_user, first_name, last_name, city, state, notifications_unseen, toggle, setToggle, set_seen_notifications }) => {
+const Navbar = ({ logout_user, first_name, last_name, city, state, notifications_unseen, toggle, setToggle, set_seen_notifications, unseen_notification_from_socket, notifications_seen }) => {
 
     const [ search, setSearch ] = useState('')
 
@@ -26,6 +27,14 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
     const [ fullSrceen, setFullSrceen ] = useState(false);
 
     const history = useHistory()
+
+    const socket = useContext(SocketContext)
+
+    useEffect(()=>{
+        socket.on('recieve-notifications', data=>{
+            unseen_notification_from_socket(data)
+        })
+    }, [socket])
 
     const handleSubMenuOpen = val => {
         if(val === 'profile'){
@@ -45,7 +54,7 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(search)
+        history.push('/find', {query: search})
     }
 
     const wrapperRef = useRef();
@@ -180,6 +189,9 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
                         {notifications_unseen.map((val, key)=>{
                             return <li key={key}><Notification by_user={val.by_user} text_one={val.text_one} highlighted_text={val.highlighted_text} text_two={val.text_two} time={moment(val.created_at).fromNow()}/></li>
                         })}
+                        {notifications_unseen.length < 5 && notifications_seen.slice(0, 5 - notifications_unseen.length).map((val, key)=>{
+                            return <li key={key}><Notification by_user={val.by_user} text_one={val.text_one} highlighted_text={val.highlighted_text} text_two={val.text_two} time={moment(val.created_at).fromNow()}/></li>
+                        })}
                         <li onClick={()=>history.push('/notifications')} >
                             <div className="notification__OpenPage"  onClick={()=>history.push('/notifications')} >
                                 <p>View More<ChevronRightRounded/></p>
@@ -230,6 +242,7 @@ const mapStateToProps = state => ({
     city: state.Login.city,
     state: state.Login.state,
     notifications_unseen: state.Notifications.notifications_unseen,
+    notifications_seen: state.Notifications.notifications,
 })
 
-export default connect(mapStateToProps, { logout_user, set_seen_notifications })(Navbar)
+export default connect(mapStateToProps, { logout_user, set_seen_notifications, unseen_notification_from_socket })(Navbar)

@@ -58,3 +58,66 @@
         color: $red;
     }
 }
+
+.dark .settings__Div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+    margin-bottom: 20px;
+    position: relative;
+    cursor: pointer;
+    color: $light;
+    background-color: $dark-primary;
+    .settings__StatusDesc{
+        display: flex;
+        align-items: center;
+        .settings__StatusName{
+            margin-left: 10px;
+            h6{
+                margin: 0%;
+                font-size: 16px;
+                font-weight: 600;
+            }
+            p{
+                margin: 0%;
+                font-size: 12px;
+                color: $light;
+            }
+        }
+    }
+    &:hover .settings__StatusDesc .settings__StatusName h6,
+    &:hover .settings__StatusDesc .MuiSvgIcon-root,
+    &:hover .MuiSvgIcon-root {
+        color: $secondary;
+    }
+    &:hover::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0%;
+        height: 100%;
+        width: 5px;
+        background-color: $secondary;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+}
+.settings__Delete{
+    &:hover::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0%;
+        height: 100%;
+        width: 5px;
+        background-color: $red;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    &:hover .settings__StatusDesc .settings__StatusName h6,
+    &:hover .settings__StatusDesc .MuiSvgIcon-root,
+    &:hover .MuiSvgIcon-root {
+        color: $red;
+    }
+}

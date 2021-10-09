@@ -8,7 +8,7 @@ const Notification = ({ by_user, text_one, highlighted_text, text_two, time }) =
                 <Avatar />
                 <div className="notification__UserDetail" >
                     <p>{by_user.first_name+' '+by_user.last_name}</p>
-                    <span>{text_one}<span>{highlighted_text}</span>{text_two}</span>
+                    <span>{text_one}&nbsp;<span>{highlighted_text}</span>&nbsp;{text_two}</span>
                 </div>
             </div>
             <div className="notification__Right">

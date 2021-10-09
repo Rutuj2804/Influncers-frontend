@@ -1,20 +1,22 @@
 import { Avatar, Button, IconButton } from '@material-ui/core'
 import { EditRounded, FlashOnRounded, StarsRounded } from '@material-ui/icons'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import AreaApexGraph from '../../components/graphs/AreaApexGraph'
 import Paper from '../../components/commons/paper/Paper'
 import Doughnut from '../../components/graphs/Doughnut'
 import PieChart from '../../components/graphs/PieChart'
-import { fetch_detail_view_of_listing, hiring_completed, remove_messages, update_application, remove_messages_from_home, listing_detail_view_analytics, create_chat_room, delete_listings } from '../../store/actions'
+import { fetch_detail_view_of_listing, hiring_completed, remove_messages, update_application, remove_messages_from_home, listing_detail_view_analytics, create_chat_room, delete_listings, get_rating_views } from '../../store/actions'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import { SocketContext } from '../../store/socket/context'
 import { useHistory } from 'react-router'
 import { Redirect } from 'react-router-dom'
 import SuccessPopup from '../../components/popups/success/SuccessPopup'
 import ErrorPopup from '../../components/popups/error/ErrorPopup'
 import UpdateApplication from '../../components/popups/applications/UpdateApplication'
+import RatingComponent from '../../components/rate/RatingComponent'
 
-const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_completed, listing_detail, success, error, remove_messages, update_application, success_from_home, error_from_home, remove_messages_from_home, listing_detail_view_analytics, dates_from_state, applications_from_state, badges_from_state, application_badges_from_state, rates_from_state, rating_labels_from_state, create_chat_room, chat_room_id_from_home, delete_listings }) => {
+const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_completed, listing_detail, success, error, remove_messages, update_application, success_from_home, error_from_home, remove_messages_from_home, listing_detail_view_analytics, dates_from_state, applications_from_state, badges_from_state, application_badges_from_state, rates_from_state, rating_labels_from_state, create_chat_room, chat_room_id_from_home, delete_listings, get_rating_views, rate_hired_from_state }) => {
 
     const id = match.params.id
 
@@ -22,11 +24,14 @@ const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_complete
 
     const [ defaultApplicationStatus, setDefaultApplicationStatus ] = useState('')
 
+    const socket = useContext(SocketContext)
+
     const history = useHistory()
 
     useEffect(()=>{
         fetch_detail_view_of_listing(id)
         listing_detail_view_analytics(id)
+        get_rating_views(id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]) 
 
@@ -67,6 +72,15 @@ const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_complete
                         <Doughnut data={rates_from_state} labels={rating_labels_from_state} backgroundColor={['#f5b225', '#ec536c', '#7a6fbe', '#58db83', '#29bbe3']} />
                     </Paper>
                 </div>
+                {rate_hired_from_state.length > 0 && <div className="col-12">
+                    <div className="projectDashboard__Rating">
+                        {
+                            rate_hired_from_state.map(val=>{
+                                return <RatingComponent key={val.id} id={val.id} full_name={val.full_name} username={val.username} />
+                            })
+                        }
+                    </div>
+                </div>}
                 <div className="col-12">
                     <div className="projectDashboard__Table">
                         <table>
@@ -103,7 +117,7 @@ const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_complete
                 </div>
             </div>
             {updateApplicationId ? <div className="successAndError__Popup">
-                <UpdateApplication projectID={id} applicationID={updateApplicationId} funtionToRun={update_application} resetFuntion={setUpdateApplicationId} defaultValue={defaultApplicationStatus} />
+                <UpdateApplication projectID={id} applicationID={updateApplicationId} funtionToRun={update_application} resetFuntion={setUpdateApplicationId} defaultValue={defaultApplicationStatus} funtionToFetchRatings={get_rating_views} socket={socket} />
             </div> : null}
             {success ? <div className="successAndError__Popup">
                 <SuccessPopup continueFun={remove_messages} message={success} path="/dashboard" />
@@ -114,7 +128,7 @@ const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_complete
             {success_from_home ? <div className="successAndError__Popup">
                 <SuccessPopup continueFun={remove_messages_from_home} message={success_from_home} path={`/project/${id}`} />
             </div> : null}
-            {error ? <div className="successAndError__Popup">
+            {error_from_home ? <div className="successAndError__Popup">
                 <ErrorPopup continueFun={remove_messages_from_home} message={error_from_home} path={`/project/${id}`}/>
             </div> : null}
         </div>
@@ -130,10 +144,11 @@ const mapStateToProps = state => ({
     badges_from_state: state.DetailView.badges,
     application_badges_from_state: state.DetailView.application_badges,
     rates_from_state: state.DetailView.rates,
+    rate_hired_from_state: state.DetailView.rate_hired,
     rating_labels_from_state: state.DetailView.rating_labels,
     chat_room_id_from_home: state.Messages.chat_room_id,
     success_from_home: state.Home.success,
     error_from_home: state.Home.error,
 })
 
-export default connect(mapStateToProps, { fetch_detail_view_of_listing, hiring_completed, remove_messages, update_application, remove_messages_from_home, listing_detail_view_analytics, create_chat_room, delete_listings })(ProjectDashboard)
+export default connect(mapStateToProps, { fetch_detail_view_of_listing, hiring_completed, remove_messages, update_application, remove_messages_from_home, listing_detail_view_analytics, create_chat_room, delete_listings, get_rating_views })(ProjectDashboard)

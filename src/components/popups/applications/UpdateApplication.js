@@ -2,13 +2,14 @@ import { Button, IconButton } from '@material-ui/core'
 import { CloseRounded } from '@material-ui/icons'
 import React, { useState } from 'react'
 
-const UpdateApplication = ({ projectID, applicationID, resetFuntion, defaultValue, funtionToRun }) => {
+const UpdateApplication = ({ projectID, applicationID, resetFuntion, defaultValue, funtionToRun, funtionToFetchRatings, socket }) => {
 
     const [ radio_light,setRadioLight ] = useState(defaultValue?defaultValue:"")
 
-    const handleSubmit = e => {
+    const handleSubmit =async e => {
         e.preventDefault()
-        funtionToRun(projectID, applicationID, radio_light);
+        await funtionToRun(projectID, applicationID, radio_light, socket);
+        await funtionToFetchRatings(projectID)
         resetFuntion(false);
     }
 

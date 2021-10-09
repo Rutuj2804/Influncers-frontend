@@ -1,14 +1,20 @@
 import { Button } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Listing from '../../components/home/Listing';
 import ProfileCard from '../../components/commons/profileCard/ProfileCard';
 import { search_database } from '../../store/actions'
 import { connect } from 'react-redux'
+import { useLocation } from 'react-router';
+import { Alert } from '@material-ui/lab'
 
 const FindPeople = ({ users, listings, search_database }) => {
 
     const [ search, setSearch ] = useState('')
+
+    const location = useLocation()
+
+    console.log(location)
 
     const [ selectedOption, setSelectedOption ] = useState('all')
 
@@ -18,6 +24,16 @@ const FindPeople = ({ users, listings, search_database }) => {
         { value: 'listings', label: 'Listings' },
         { value: 'projects', label: 'Projects' },
     ];
+
+    useEffect(()=>{
+        if(location.state === null) return;
+        search_database(selectedOption, location.state.query);
+    }, [location])
+
+    useEffect(()=>{
+        if(location.state !== null) return;
+        search_database('', '')
+    }, [location])
 
     const handleSearchSubmit = e => {
         e.preventDefault();
@@ -36,6 +52,7 @@ const FindPeople = ({ users, listings, search_database }) => {
                             onChange={e=>setSearch(e.target.value)}
                             required
                             placeholder="Search people, projects, listings..."
+                            autoFocus
                         />
                         <label onClick={()=>setSearch('')} ><CloseRounded fontSize="small" /></label>
                     </div>
@@ -73,7 +90,7 @@ const FindPeople = ({ users, listings, search_database }) => {
                                                 id={val.id}
                                                 title={val.title}
                                                 requirements={val.requirements}
-                                                views={val.views}
+                                                views={val.views.length}
                                                 applications={val.applications.length}
                                                 price={val.payment}
                                                 price_on={'video'}
@@ -84,6 +101,7 @@ const FindPeople = ({ users, listings, search_database }) => {
                                                 positions={val.positions}
                                             />
                                 })}
+                                {listings.length === 0 && <Alert icon={false} className="justify-content-center">No Results Found with keywords {search}</Alert>}
                             </div>
                             <div className="col-lg-3 globalDivDisplayNone" >
                                 {/* <ProfileCard /> */}
@@ -106,8 +124,8 @@ const FindPeople = ({ users, listings, search_database }) => {
                                                 photo={`${process.env.REACT_APP_API_URL}${val.photo}`}
                                             />
                                         </div>
-                                })}
-                            
+                            })}
+                            <div className="col-lg-6 col-12 offset-lg-3">{users.length === 0 && <Alert icon={false} className="justify-content-center">No Results Found with keywords {search}</Alert>}</div>
                         </div>
                     )
                 }
@@ -116,7 +134,24 @@ const FindPeople = ({ users, listings, search_database }) => {
                         <div className="row">
                             <div className="col-lg-3 col-12" ></div>
                             <div className="col-lg-6 col-12" >
-                            <Listing id={1} title="Title" requirements={['actor', 'director', 'painter']} views="20" applications="10" price="280" price_on="project" type="project" datetime="2 days ago" place="pune, maharashtra" target="15,000" positions={2} />
+                                {listings.map((val, key)=>{
+                                    return <Listing 
+                                                key={key}
+                                                id={val.id}
+                                                title={val.title}
+                                                requirements={val.requirements}
+                                                views={val.views.length}
+                                                applications={val.applications.length}
+                                                price={val.payment}
+                                                price_on={'video'}
+                                                type={val.type}
+                                                datetime={val.created_at}
+                                                place={val.place}
+                                                target={val.target}
+                                                positions={val.positions}
+                                            />
+                                })}
+                                {listings.length === 0 && <Alert icon={false} className="justify-content-center">No Results Found with keywords {search}</Alert>}
                             </div>
                             <div className="col-lg-3 col-12" ></div>
                         </div>

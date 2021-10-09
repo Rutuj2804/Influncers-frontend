@@ -7,7 +7,11 @@ import {
     DETAIL_VIEW_LISTINGS_SUCCESS,
     DETAIL_VIEW_LISTINGS_FAIL,
     DELETE_LISTINGS_SUCCESS,
-    DELETE_LISTINGS_FAIL
+    DELETE_LISTINGS_FAIL,
+    FETCH_RATINGS_SUCCESS,
+    FETCH_RATINGS_FAIL,
+    RATE_USER_SUCCESS,
+    RATE_USER_FAIL
 } from "./type"
   
 const initialState = {
@@ -16,6 +20,7 @@ const initialState = {
     badges: [],
     application_badges: [],
     rates: [],
+    rate_hired: [],
     rating_labels: [],
     single_listing: {},
     error: "",
@@ -67,13 +72,28 @@ const detialview = (state = initialState, action) => {
                 ...state,
                 error: payload
             }
-        
+        case FETCH_RATINGS_SUCCESS:
+            return {
+                ...state,
+                rate_hired: payload
+            }
+        case RATE_USER_SUCCESS:
+            return{
+                ...state,
+                success: payload
+            }
+        case RATE_USER_FAIL:
+            return{
+                ...state,
+                error: payload
+            }
         case REMOVE_MESSAGES:
             return {
                 ...state,
                 error: '',
                 success: '',
             }
+        case FETCH_RATINGS_FAIL:
         case DETAIL_VIEW_LISTINGS_FAIL:
         default:
             return state

@@ -8,6 +8,8 @@
     margin-bottom: 10px;
     cursor: pointer;
     position: relative;
+    width: 100%;
+    overflow: hidden;
     .campaign__Left{
         display: flex;
         flex-direction: column;
@@ -18,6 +20,13 @@
                 margin-bottom: 2px;
                 display: flex;
                 align-items: center;
+                span{
+                    flex: 1;
+                    overflow: hidden;
+                    white-space:nowrap;
+                    max-width: 200px;
+                    text-overflow: ellipsis;
+                }
                 .campaign__Offline{
                     height: 10px;
                     width: 10px;
@@ -87,6 +96,113 @@
             p{
                 font-size: 12px;
                 color: #707070;
+            }
+        }
+    }
+    &:hover::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 5px;
+        background-color: $secondary;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
+
+
+.dark .campaign__Wrapper{
+    background-color: $dark-primary;
+    color: $light;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+    position: relative;
+    .campaign__Left{
+        display: flex;
+        flex-direction: column;
+        .campaign__ListingDetails{
+            h6{
+                margin: 0%;
+                font-size: 14px;
+                margin-bottom: 2px;
+                display: flex;
+                align-items: center;
+                .campaign__Offline{
+                    height: 10px;
+                    width: 10px;
+                    border-radius: 50%;
+                    background-color: $red;
+                    margin-left: 15px;
+                }
+                .campaign__Online{
+                    height: 10px;
+                    width: 10px;
+                    border-radius: 50%;
+                    background-color: $green;
+                    margin-left: 15px;
+                }
+            }
+            p{
+                margin: 0%;
+                font-size: 12px;
+                color: $light;
+            }
+        }
+        .campaign__RealtimeDetails{
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            .campaign__Visibility{
+                margin-right: 7px;
+                display: flex;
+                align-items: center;
+                color: $light;
+                p{
+                    font-size: 12px;
+                    margin-bottom: 0%;
+                    margin-left: 7px;
+                }
+            }
+            .campaign__Bids{
+                display: flex;
+                align-items: center;
+                color: $light;
+                p{
+                    font-size: 12px;
+                    margin-bottom: 0%;
+                    margin-left: 7px;
+                }
+            }
+        }
+    }
+    .campaign__Right{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        .campaign__Money{
+            display: flex;
+            align-items: center;
+            span{
+                font-size: 24px;
+                font-weight: 600;
+            }
+            p{
+                margin: 0%;
+                margin-left: 7px;
+                font-size: 12px;
+            }
+        }
+        .campaign__Time{
+            p{
+                font-size: 12px;
+                color: $light;
             }
         }
     }

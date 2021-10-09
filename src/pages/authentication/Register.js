@@ -5,6 +5,7 @@ import { useHistory, Redirect } from 'react-router-dom'
 import { register_user } from '../../store/actions'
 import Input from '../../components/commons/input/Input'
 import { connect } from 'react-redux'
+import Image from '../../assets/images/image.jpg'
 
 const Register = ({ register_user, isAuthenticated, error_from_state }) => {
 
@@ -43,10 +44,6 @@ const Register = ({ register_user, isAuthenticated, error_from_state }) => {
 
     return (
         <div className="auth__Wrapper">
-            <div className="auth__LoginBox">
-                <div className="auth__ImageSide">
-                    <div className="auth__RegisterImage"></div>
-                </div>
                 <div className="auth__FormSide">
                     <div className="auth__Title">
                         <h4>Register</h4>
@@ -132,11 +129,9 @@ const Register = ({ register_user, isAuthenticated, error_from_state }) => {
                         <p>Already have an account? <span onClick={()=>history.push('/login')} >Login Now</span></p>
                     </div>
                 </div>
-            </div>
-            <div className="auth__BackgroundBox">
-                <div className="auth__ImageFrame"></div>
-                <div className="auth__NonImageFrame"></div>
-            </div>
+                <div className="auth__Background">
+                    <img src={Image} alt="background" />
+                </div>
         </div>
     )
 }
