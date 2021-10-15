@@ -42,6 +42,7 @@ const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAu
                 send_status_update('offline')
             } );
         } 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     useEffect(() => {
@@ -55,15 +56,17 @@ const App = ({ load_user, check_authentication, fetch_unseen_notifications, isAu
                 send_status_update('online')
             } );
         } 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     useEffect(() => {
         if(username) send_status_update('online')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[username]);
 
     useEffect(()=>{
         chat_rooms.map((val) => {
-            socket.emit('join-room', val.id)
+            return socket.emit('join-room', val.id)
         })
     }, [chat_rooms, socket])
 

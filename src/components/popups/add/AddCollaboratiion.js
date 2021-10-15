@@ -98,6 +98,7 @@ const AddCollaboratiion = ({ setCollaborationPopup, create_project, success_from
                 }
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleSubmit = e => {

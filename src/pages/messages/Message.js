@@ -20,6 +20,7 @@ const Message = ({ chat_rooms, username, fetch_rooms }) => {
 
     useEffect(()=>{
         fetch_rooms()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

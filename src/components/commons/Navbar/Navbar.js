@@ -34,6 +34,7 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
         socket.on('recieve-notifications', data=>{
             unseen_notification_from_socket(data)
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [socket])
 
     const handleSubMenuOpen = val => {

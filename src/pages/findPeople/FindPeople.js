@@ -14,8 +14,6 @@ const FindPeople = ({ users, listings, search_database }) => {
 
     const location = useLocation()
 
-    console.log(location)
-
     const [ selectedOption, setSelectedOption ] = useState('all')
 
     const options = [
@@ -28,11 +26,13 @@ const FindPeople = ({ users, listings, search_database }) => {
     useEffect(()=>{
         if(location.state === null) return;
         search_database(selectedOption, location.state.query);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
     useEffect(()=>{
         if(location.state !== null) return;
         search_database('', '')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
 
     const handleSearchSubmit = e => {

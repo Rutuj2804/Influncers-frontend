@@ -42,6 +42,7 @@ const MessagesRoom = ({ match, username, chat_rooms, fetch_messages, opposite_us
 
     useEffect(()=>{
         clear_chat_room_id()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     socket.on('recieve-message', data=>{
@@ -70,6 +71,7 @@ const MessagesRoom = ({ match, username, chat_rooms, fetch_messages, opposite_us
             if(user.username !== username){
                 ind = user
             }
+            return user;
         })
         return ind
     }

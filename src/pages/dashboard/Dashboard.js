@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Campaign from '../../components/dashboard/Campaign'
 import AreaApexGraph from '../../components/graphs/AreaApexGraph'
-import { ImportExportRounded, StarsRounded } from '@material-ui/icons'
+import { ImportExportRounded } from '@material-ui/icons'
 import { fetch_my_listings, dashboard_analytics, time_spend_analytics, fetch_my_recent_listings } from '../../store/actions'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -29,7 +29,7 @@ const Dashboard = ({ fetch_my_listings, my_listings_from_state, dashboard_analyt
                 </div>
                 <div className="col-lg-4 col-md-5 col-12">
                     {my_listings_from_state.map((val, key)=>{
-                        if(val.completed === true || val.deleted === true) return;
+                        if(val.completed === true || val.deleted === true) return null;
                         return <Campaign
                             key={key}
                             id={val.id}
@@ -52,7 +52,7 @@ const Dashboard = ({ fetch_my_listings, my_listings_from_state, dashboard_analyt
                 <div className="col-md-4 col-12 mt-2">
                     <h5>Recent Projects</h5>
                     {recent_listings.map((val, key)=>{
-                        if(key> 2) return;
+                        if(key> 2) return null;
                         return <Campaign
                             key={key}
                             id={val.id}

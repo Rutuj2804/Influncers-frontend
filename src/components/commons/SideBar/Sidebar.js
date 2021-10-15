@@ -1,5 +1,5 @@
 import { IconButton } from '@material-ui/core'
-import { CloseRounded, ContactSupportRounded, DashboardRounded, EqualizerRounded, HomeRounded, ModeCommentRounded, PeopleRounded, SettingsRounded } from '@material-ui/icons'
+import { CloseRounded, DashboardRounded, EqualizerRounded, HomeRounded, ModeCommentRounded, PeopleRounded, SettingsRounded } from '@material-ui/icons'
 import React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 
