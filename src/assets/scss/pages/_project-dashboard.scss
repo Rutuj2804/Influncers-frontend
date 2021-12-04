@@ -94,30 +94,7 @@
             .projectDashboard__Badges{
                 text-align: center;
             }
-            .projectDashboard__hired,
-            .projectDashboard__Badge5{
-                .MuiSvgIcon-root{
-                    fill: #009879;
-                }
-            }
-            .projectDashboard__notviewed,
-            .projectDashboard__Badge4{
-                .MuiSvgIcon-root{
-                    fill: $blue;
-                }
-            }
-            .projectDashboard__underprocess,
-            .projectDashboard__Badge3{
-                .MuiSvgIcon-root{
-                    fill: $yellow;
-                }
-            }
-            .projectDashboard__rejected,
-            .projectDashboard__Badge2{
-                .MuiSvgIcon-root{
-                    fill: $red;
-                }
-            }
+            
             button{
                 color: #1f5948;
                 font-size: 12px;
@@ -144,6 +121,36 @@
     }
 }
 
+.projectDashboard__hired,
+.projectDashboard__Badge5{
+    .MuiSvgIcon-root{
+        fill: #009879;
+    }
+}
+.projectDashboard__notviewed,
+.projectDashboard__Badge4{
+    .MuiSvgIcon-root{
+        fill: $blue;
+    }
+}
+.projectDashboard__underprocess,
+.projectDashboard__Badge3{
+    .MuiSvgIcon-root{
+        fill: $red;
+    }
+}
+.projectDashboard__rejected,
+.projectDashboard__Badge2{
+    .MuiSvgIcon-root{
+        fill: $yellow;
+    }
+}
+.projectDashboard__rejected,
+.projectDashboard__Badge1{
+    .MuiSvgIcon-root{
+        fill: #ffdf00;
+    }
+}
 
 
 .dark .projectDashboard__Wrapper{

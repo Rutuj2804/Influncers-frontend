@@ -105,7 +105,7 @@ const Stats = ({ applications, fetch_applications, username, stats_analytics, da
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-8 col-12">
-                    <AreaApexGraph data={time_spend_data} labels={time_spend_labels} />
+                    {/* <AreaApexGraph data={time_spend_data} labels={time_spend_labels} /> */}
                 </div>
             </div>
         </div>

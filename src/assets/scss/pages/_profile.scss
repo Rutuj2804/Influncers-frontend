@@ -121,3 +121,128 @@
         }
     }
 }
+
+
+.dark .profile__Wrapper{
+    color: $light;
+    .profile__HeaderPart{
+        width: 100%;
+        position: relative;
+        .profile__ImageBackground{
+            width: 100%;
+            img{
+                height: 300px;
+                object-fit: cover;
+                width: 100%;
+                border-radius: 5px;
+            }
+        }
+        .profile__ProfileDetails{
+            width: 90%;
+            position: absolute;
+            top: 250px;
+            left: 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .profile__ProfileImage{
+                display: flex;
+                align-items: flex-end;
+                img{
+                    height: 150px;
+                    width: 150px;
+                    background: #fafafa;
+                    border-radius: 50%;
+                    border: 1px solid #efefef;
+                    padding: 5px;
+                    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+                }
+                .profile__NameAndCity{
+                    margin-bottom: 40px;
+                    margin-left: 20px;
+                    h4,p{
+                        margin: 0;
+                    }
+                }
+            }
+            button {
+                background: $secondary;
+                color: $white;
+                padding: 7px 20px;
+                font-size: 12px;
+                .MuiSvgIcon-root{
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+    .profile__SiteStatus{
+        margin-top: 120px;
+        .profile__Applications{
+            width: 100%;
+            background-color: $dark-primary;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            div{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .MuiSvgIcon-root{
+                    font-size: 28px;
+                }
+                h6{
+                    margin-bottom: 0%;
+                    font-size: 24px;
+                }
+                p{
+                    margin-bottom: 0%;
+                    font-size: 14px;
+                    color: $light;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+    .profile__SocialHandles{
+        ul{
+            list-style: none;
+            padding: 0%;
+            margin-left: 10px;
+            li{
+                display: flex;
+                align-items: center;
+                a{
+                    color: inherit;
+                    text-decoration: none;
+                }
+                .MuiSvgIcon-root{
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+    .profile__Skills{
+        ul{
+            list-style: none;
+            padding: 0%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 0%;
+            li{
+                display: flex;
+                align-items: center;
+                padding: 5px 7px;
+                background-color: $light;
+                color: #000;
+                border-radius: 5px;
+                margin-right: 5px;
+                margin-top: 5px;
+            }
+        }
+    }
+}

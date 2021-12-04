@@ -136,6 +136,40 @@ export const fetch_my_listing_detail_view = (id) => async dispatch => {
 
 }
 
+
+export const fetch_display_users_listings = (username) => async dispatch => {
+
+    dispatch(loading_starts())
+
+    const config = {
+        headers: {
+            "Content-type": "Application/json",
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    }
+
+    const body = { "username": username }
+
+    try {
+    
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/listings/get-listings-user/`, body, config)
+
+        dispatch({
+            type: FETCH_MY_LISTINGS_SUCCESS,
+            payload: res.data.listings
+        })
+
+    } catch (error) {
+        dispatch({
+            type: FETCH_MY_LISTINGS_FAIL
+        })
+    }
+
+    dispatch(loading_stops())
+
+}
+
+
 export const create_project = (title, description, type, requirements, place, money, work_description, reward, target, currency, position) => async dispatch => {
 
     dispatch(loading_starts())

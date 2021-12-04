@@ -136,6 +136,7 @@ const EditProfile = ({ user_from_state, update_user, error_from_state, success_f
                                         icon={<EmailRounded fontSize="small" />}
                                         placeholder="Enter email"
                                         isRequired
+                                        disabled
                                     />
                                     <Input
                                         type="text"

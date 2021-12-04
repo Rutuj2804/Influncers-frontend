@@ -125,9 +125,10 @@ export const update_user = (formdata) => async dispatch =>{
         },5000)
 
     } catch (error) {
+        console.log(error);
         dispatch({
             type: UPDATE_USER_FAIL,
-            payload: error.response.data.error
+            payload: error?.response?.data?.error ? error.response.data.error : error.message
         })
 
         setTimeout(()=>{

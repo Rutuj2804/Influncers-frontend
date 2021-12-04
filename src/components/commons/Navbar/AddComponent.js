@@ -8,7 +8,7 @@ const AddComponent = ({ setCollaborationPopup }) => {
             <div className="addComponent__Left" >
                 <GroupWorkRounded />
                 <div className="addComponent__UserDetail" >
-                    <p>Add collaboration</p>
+                    <p>Add Listing</p>
                     <span>Your collaboration will be visible to all</span>
                 </div>
             </div>

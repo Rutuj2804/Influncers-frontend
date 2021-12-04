@@ -7,12 +7,14 @@ import Paper from '../../components/commons/paper/Paper'
 import { connect } from 'react-redux'
 import SuccessPopup from '../../components/popups/success/SuccessPopup'
 import ErrorPopup from '../../components/popups/error/ErrorPopup'
+import { useHistory } from 'react-router-dom'
 
 const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing, success, error, remove_messages, apply_for_listing }) => {
 
     const [ formData, setFormData ] = useState({
         photo: image,
         first_name: '',
+        username: '',
         last_name: '',
         title: '',
         city: '',
@@ -32,6 +34,8 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
 
     const { id } = match.params
 
+    const history = useHistory()
+
     useEffect(()=>{
         fetch_detail_view_of_listing(id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,6 +45,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
         setFormData({
             photo: single_listing.user?.photo?`${process.env.REACT_APP_API_URL}${single_listing.user.photo}`:image,
             first_name: single_listing.user?.first_name,
+            username: single_listing.user?.username,
             last_name: single_listing.user?.last_name,
             title: single_listing.title,
             city: single_listing.user?.city,
@@ -62,7 +67,7 @@ const ListingDetailPage = ({ fetch_detail_view_of_listing, match, single_listing
     return (
         <div className="listingDetailPage__Wrapper">
             <div className="listingDetailPage__Header">
-                <div className="listingDetailPage__HeaderLeft">
+                <div className="listingDetailPage__HeaderLeft" onClick={()=>history.push(`/c/@${formData.username}`)}>
                     <img 
                         src={formData.photo}
                         alt="profile"

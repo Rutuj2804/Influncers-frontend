@@ -8,6 +8,7 @@ import Notifications from "./notifications/reducers"
 import DetailView from "./detail-views/reducers"
 import Stats from "./stats/reducers"
 import FindPeople from "./find/reducers"
+import DisplayUser from "./display-user/reducers"
 
 const rootReducer = combineReducers({
     Login,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     Notifications,
     DetailView,
     Stats,
-    FindPeople
+    FindPeople,
+    DisplayUser
 })
   
 export default rootReducer

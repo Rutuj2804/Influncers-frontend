@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core'
-import { Facebook, Instagram, Pinterest, Send, StarsRounded, YouTube  } from '@material-ui/icons'
+import { Facebook, Instagram, Send, StarsRounded, YouTube  } from '@material-ui/icons'
 import Rating from '@material-ui/lab/Rating'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
@@ -19,51 +19,51 @@ const Profile = ({ user_from_state }) => {
                         </div>
                         <div className="profile__ProfileDetails">
                             <div className="profile__ProfileImage">
-                                <img src={user} alt="profile" />
+                                <img src={user_from_state.photo ? process.env.REACT_APP_API_URL + user_from_state.photo : user} alt="profile" />
                                 <div className="profile__NameAndCity">
-                                    <h4>Rutuj Bokade</h4>
-                                    <p>Pune, Maharashtra</p>
+                                    <h4>{user_from_state.first_name + ' ' + user_from_state.last_name}</h4>
+                                    <p>{user_from_state.city}, {user_from_state.state}</p>
                                 </div>
                             </div>
                             <Button> <Send fontSize="small" /> Message</Button>
                         </div>
                     </section>
                     <div className="profile__SiteStatus">
-                        <div className="profile__Applications">
-                            <div>
-                                <h6>152</h6>
-                                <p>Applications</p>
-                            </div>
-                            <span>|</span>
-                            <div>
-                                <h6>112</h6>
-                                <p>Selctions</p>
-                            </div>
-                            <span>|</span>
-                            <div>
-                                <h6>2</h6>
-                                <p>Under Process</p>
-                            </div>
-                            <span>|</span>
-                            <div>
-                                <h6>122</h6>
-                                <p>Hours Spent</p>
-                            </div>
-                            <span>|</span>
-                            <div>
-                                <StarsRounded />
-                                <p>Performance</p>
-                            </div>
-                        </div>
+                        {
+                            !user_from_state.isCompany ?
+                            <div className="profile__Applications">
+                                <div>
+                                    <h6>{user_from_state.applications}</h6>
+                                    <p>Applications</p>
+                                </div>
+                                <span>|</span>
+                                <div>
+                                    <h6>{user_from_state.hires}</h6>
+                                    <p>Selections</p>
+                                </div>
+                                <span>|</span>
+                                <div>
+                                    <h6>{user_from_state.underprocess}</h6>
+                                    <p>Under Process</p>
+                                </div>
+                                <span>|</span>
+                                <div>
+                                    <h6>{Math.floor(user_from_state.timespent)}</h6>
+                                    <p>Hours Spent</p>
+                                </div>
+                                <span>|</span>
+                                <div className={`projectDashboard__Badge${user_from_state.badge}`}>
+                                    <StarsRounded />
+                                    <p>Performance</p>
+                                </div>
+                            </div>: null
+                        }
                     </div>
                     <div className="profile__Descritpion my-3">
                         <Paper>
                             <div className="p-3">
                                 <h5>About Me</h5>
-                                <p>A checkbox can either be a primary action or a secondary action.
-                                    The checkbox is the primary action and the state indicator for the list item. The comment button is a secondary action and a separate target.
-                                    Upon scrolling, subheaders remain pinned to the top of the screen until pushed off screen by the next subheader. This feature relies on CSS sticky positioning. (⚠️ no IE 11 support)
-                                    The inset prop enables a list item that does not have a leading icon or avatar to align correctly with items that do.</p>
+                                <p>{user_from_state.description}</p>
                             </div>
                         </Paper>
                     </div>
@@ -73,10 +73,9 @@ const Profile = ({ user_from_state }) => {
                         <div className="profile__SocialHandles">
                             <h5>Connect</h5>
                             <ul>
-                                <li><NavLink to="/profile" ><Instagram fontSize="large" /> @rutuj_bokade</NavLink></li>
-                                <li><NavLink to="/profile" ><Facebook fontSize="large" /> @rutuj_bokade</NavLink></li>
-                                <li><NavLink to="/profile" ><YouTube fontSize="large" /> @rutuj_bokade</NavLink></li>
-                                <li><NavLink to="/profile" ><Pinterest fontSize="large" /> @rutuj_bokade</NavLink></li>
+                                <li><NavLink to="/profile" ><Instagram fontSize="large" /> @{user_from_state.instagram}</NavLink></li>
+                                <li><NavLink to="/profile" ><Facebook fontSize="large" /> @{user_from_state.facebook}</NavLink></li>
+                                <li><NavLink to="/profile" ><YouTube fontSize="large" /> @{user_from_state.youtube}</NavLink></li>
                             </ul>
                         </div>
                     </Paper>
@@ -85,9 +84,9 @@ const Profile = ({ user_from_state }) => {
                             <Paper>
                                 <h5>Skills</h5>
                                 <ul>
-                                    <li>Actor</li>
-                                    <li>Singer</li>
-                                    <li>Director</li>
+                                    {user_from_state.skills.map(val=>(
+                                        <li key={val.id}>{val.name}</li>
+                                    ))}
                                 </ul>
                             </Paper>
                         </div>
@@ -97,8 +96,8 @@ const Profile = ({ user_from_state }) => {
                             <Paper>
                                 <h5>Score Board</h5>
                                 <div>
-                                    <Rating readOnly value={3} />
-                                    ( 1001 )
+                                    <Rating readOnly value={user_from_state.rating} />
+                                    ( {user_from_state.raters_count.length} )
                                 </div>
                             </Paper>
                         </div>

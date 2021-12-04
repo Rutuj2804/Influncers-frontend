@@ -15,6 +15,7 @@ import SuccessPopup from '../../components/popups/success/SuccessPopup'
 import ErrorPopup from '../../components/popups/error/ErrorPopup'
 import UpdateApplication from '../../components/popups/applications/UpdateApplication'
 import RatingComponent from '../../components/rate/RatingComponent'
+import { Tooltip } from '@material-ui/core'
 
 const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_completed, listing_detail, success, error, remove_messages, update_application, success_from_home, error_from_home, remove_messages_from_home, listing_detail_view_analytics, dates_from_state, applications_from_state, badges_from_state, application_badges_from_state, rates_from_state, rating_labels_from_state, create_chat_room, chat_room_id_from_home, delete_listings, get_rating_views, rate_hired_from_state }) => {
 
@@ -103,8 +104,8 @@ const ProjectDashboard = ({ match, fetch_detail_view_of_listing, hiring_complete
                                                     <td className="projectDashboard__AvatarColumn" ><Avatar src={`${process.env.REACT_APP_API_URL}${val.applicant.photo}`} /> <p>{val.applicant.first_name + ' ' + val.applicant.last_name}</p> <span className={val.applicant.online?"projectDashboard__UserOnline":"projectDashboard__UserOffline"}></span></td>
                                                     <td>@{val.applicant.username}</td>
                                                     <td>{val.applicant.points}</td>
-                                                    <td className="projectDashboard__Badges projectDashboard__Badge5" ><StarsRounded /></td>
-                                                    <td className={`projectDashboard__${val.status}`} ><FlashOnRounded /></td>
+                                                    <td className={`projectDashboard__Badges projectDashboard__Badge${val.applicant.badge}`} ><Tooltip title={`Badge ${val.applicant.badge}`} ><StarsRounded /></Tooltip></td>
+                                                    <td className={`projectDashboard__${val.status}`} ><Tooltip title={`${val.status.toUpperCase()}`}><FlashOnRounded /></Tooltip></td>
                                                     <td><Button onClick={()=>redirectToMessages(val.applicant.username)}>Message</Button></td>
                                                     <td className="text-center"><IconButton size="small" disabled={val.status==='hired'} onClick={()=>handleEditApplication(val.id, val.status)} ><EditRounded fontSize="small" /></IconButton></td>
                                                     <td>{moment(val.created_at).fromNow()}</td>

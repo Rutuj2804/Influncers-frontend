@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({ type, name, value, setFormData, formData, isRequired, icon, placeholder }) => {
+const Input = ({ type, name, value, setFormData, formData, isRequired, icon, placeholder, ...rest }) => {
 
     const handleOnChange = e => {
         setFormData({
@@ -19,6 +19,7 @@ const Input = ({ type, name, value, setFormData, formData, isRequired, icon, pla
                 required={isRequired}
                 placeholder={placeholder}
                 autoComplete="off"
+                {...rest}
             />
             <label>{icon}</label>
         </div>

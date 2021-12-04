@@ -1,5 +1,5 @@
 import { Badge, IconButton } from '@material-ui/core'
-import { ChevronRightRounded, EditRounded, NotificationsRounded, AddRounded, PersonRounded, PowerSettingsNewRounded, SearchRounded, SettingsRounded, SubjectRounded, NotesRounded, DescriptionRounded, ContactSupportRounded, FullscreenRounded } from '@material-ui/icons'
+import { ChevronRightRounded, EditRounded, NotificationsRounded, AddRounded, PersonRounded, PowerSettingsNewRounded, SearchRounded, SettingsRounded, NotesRounded, ContactSupportRounded, FullscreenRounded } from '@material-ui/icons'
 import React, { useEffect, useRef, useState, useContext } from 'react'
 import Notification from './Notification'
 import ProfileNavigation from './ProfileNavigation'
@@ -219,8 +219,8 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
                         </div>
                         <li><ProfileNavigation icon={<PersonRounded fontSize="small" />} text="View Profile" path="/profile" /></li>
                         <li><ProfileNavigation icon={<EditRounded fontSize="small" />} text="Edit Profile" path="/edit-profile" /></li>
-                        <li><ProfileNavigation icon={<SubjectRounded fontSize="small" />} text="Edit Resume" path="/edit-resume" /></li>
-                        <li><ProfileNavigation icon={<DescriptionRounded fontSize="small" />} text="View Resume" path="/view-resume" /></li>
+                        {/* <li><ProfileNavigation icon={<SubjectRounded fontSize="small" />} text="Edit Resume" path="/edit-resume" /></li> */}
+                        {/* <li><ProfileNavigation icon={<DescriptionRounded fontSize="small" />} text="View Resume" path="/view-resume" /></li> */}
                         <li><ProfileNavigation icon={<SettingsRounded fontSize="small" />} text="Settings" path="/settings" /></li>
                         <li><ProfileNavigation icon={<ContactSupportRounded fontSize="small" />} text="Help" path="/help" /></li>
                         <li onClick={()=>logout_user()} ><ProfileNavigation icon={<PowerSettingsNewRounded fontSize="small" />} text="Logout" path="" /></li>
