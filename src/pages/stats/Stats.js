@@ -55,6 +55,7 @@ const Stats = ({ applications, fetch_applications, username, stats_analytics, da
                                             }
                                         })}
                                     rank={key+1}
+                                    username={val.username}
                                 />
                     ))}
                 </div>

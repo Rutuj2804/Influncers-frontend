@@ -1,11 +1,15 @@
 import { Avatar } from '@material-ui/core'
 import image from '../../assets/images/image.jpg'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
-const RankProfile = ({ name, tags, rank }) => {
+const RankProfile = ({ name, tags, rank, username }) => {
+
+    const history = useHistory()
+
     return (
         <>
-        <div className="rankProfile__Wrapper" >
+        <div className="rankProfile__Wrapper" onClick={() =>history.push(`/c/@${username}`)}>
             <div className="rankProfile__Upper">
                 <div className="rankProfile__Left">
                     <div className="rankProfile__User">

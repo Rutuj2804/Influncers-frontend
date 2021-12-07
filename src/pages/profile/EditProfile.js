@@ -74,15 +74,15 @@ const EditProfile = ({ user_from_state, update_user, error_from_state, success_f
         setFormData({ ...formData, links: [...links, link], link_name: '', link_input: '' })
     }
 
-    const handleAddSkills = (e) => {
-        if(e.key === 'Enter'){
+    const handleAddSkills = () => {
+        // if(e.key === 'Enter'){
             if(skill_name==='') return;
             const skill = {
                 id: Math.floor((Math.random())*100000),
                 name: skill_name
             }
             setFormData({ ...formData, skills: [...skills, skill], skill_name: '', skill_input: '' })
-        }
+        // }
     }
 
     const handleFormSubmit = e => {
@@ -264,6 +264,7 @@ const EditProfile = ({ user_from_state, update_user, error_from_state, success_f
                                                 setFormData={setFormData}
                                                 icon={<AssignmentIndRounded fontSize="small" />}
                                                 placeholder="Enter skill name"
+                                                onKeyPressFunction={handleAddSkills}
                                             />
                                             <Button onClick={()=>handleAddSkills()}>Add skill</Button>
                                         </div>
