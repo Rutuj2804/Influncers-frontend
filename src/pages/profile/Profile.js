@@ -1,14 +1,21 @@
 import { Button } from '@material-ui/core'
 import { Facebook, Instagram, Send, StarsRounded, YouTube  } from '@material-ui/icons'
 import Rating from '@material-ui/lab/Rating'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import Paper from '../../components/commons/paper/Paper'
 import image from '../../assets/images/image.jpg'
 import user from '../../assets/images/user.png'
 import { connect } from 'react-redux'
+import { load_user } from '../../store/actions'
 
-const Profile = ({ user_from_state }) => {
+const Profile = ({ user_from_state, load_user }) => {
+
+    useEffect(()=>{
+        load_user()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <div className="profile__Wrapper">
             <div className="row">
@@ -112,4 +119,4 @@ const mapStateToProps = state => ({
     user_from_state: state.Login
 })
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps, { load_user })(Profile)

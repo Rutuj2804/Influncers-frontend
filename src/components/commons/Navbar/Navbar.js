@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { SocketContext } from '../../../store/socket/context'
 import moment from 'moment'
 
-const Navbar = ({ logout_user, first_name, last_name, city, state, notifications_unseen, toggle, setToggle, set_seen_notifications, unseen_notification_from_socket, notifications_seen }) => {
+const Navbar = ({ logout_user, first_name, last_name, city, state, notifications_unseen, toggle, setToggle, set_seen_notifications, unseen_notification_from_socket, notifications_seen, isCompany }) => {
 
     const [ search, setSearch ] = useState('')
 
@@ -166,14 +166,16 @@ const Navbar = ({ logout_user, first_name, last_name, city, state, notifications
                         </div>
                     </form>
                 </div>
-                <div className="navbar__Notifications" ref={addRef}>
-                    <IconButton size="medium" onClick={()=>handleSubMenuOpen('add')}>
-                        <AddRounded/>
-                    </IconButton>
-                    <ul style={openAdd?{display: "block"}:{display: "none"}}>
-                        <li onClick={()=>setCollaborationPopup(true)}><AddComponent setCollaborationPopup={setCollaborationPopup} /></li>
-                    </ul>
-                </div>
+                {
+                    isCompany && <div className="navbar__Notifications" ref={addRef}>
+                                        <IconButton size="medium" onClick={()=>handleSubMenuOpen('add')}>
+                                            <AddRounded/>
+                                        </IconButton>
+                                        <ul style={openAdd?{display: "block"}:{display: "none"}}>
+                                            <li onClick={()=>setCollaborationPopup(true)}><AddComponent setCollaborationPopup={setCollaborationPopup} /></li>
+                                        </ul>
+                                    </div>
+                }
                 
                 <div className="navbar__Notifications" >
                     <IconButton size="medium" onClick={()=>fullSrceen?closeFullscreen():openFullscreen()}>
@@ -244,6 +246,7 @@ const mapStateToProps = state => ({
     state: state.Login.state,
     notifications_unseen: state.Notifications.notifications_unseen,
     notifications_seen: state.Notifications.notifications,
+    isCompany: state.Login.isCompany,
 })
 
 export default connect(mapStateToProps, { logout_user, set_seen_notifications, unseen_notification_from_socket })(Navbar)

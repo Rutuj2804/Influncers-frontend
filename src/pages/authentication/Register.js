@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Button, Checkbox, FormControlLabel } from '@material-ui/core'
 import { EmailRounded, LocationCityRounded, PeopleAltRounded, PersonPinCircleRounded, PersonRounded, SupervisorAccountRounded, VpnKeyRounded } from '@material-ui/icons'
 import React, { useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom'
@@ -16,10 +16,11 @@ const Register = ({ register_user, isAuthenticated, error_from_state }) => {
         username: '',
         city: '',
         state: '',
-        password: ''
+        password: '',
+        isCompany: false
     })
 
-    const { first_name, last_name, email, city, state, username, password } = formData
+    const { first_name, last_name, email, city, state, username, password, isCompany } = formData
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -32,7 +33,8 @@ const Register = ({ register_user, isAuthenticated, error_from_state }) => {
             city: '',
             state: '',
             username: '',
-            password: ''
+            password: '',
+            isCompany: false
         })
     }
 
@@ -121,6 +123,7 @@ const Register = ({ register_user, isAuthenticated, error_from_state }) => {
                                 placeholder="Enter password"
                                 isRequired
                             />
+                            <FormControlLabel control={<Checkbox color="primary" onChange={(e)=>setFormData({ ...formData, isCompany: e.target.checked })} checked={isCompany} />} label="We are a Company" />
                         <div className="auth__ButtonGrp" >
                             <Button type="submit" >Register</Button>
                         </div>
