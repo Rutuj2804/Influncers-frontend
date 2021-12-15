@@ -3,6 +3,7 @@ import { CloseRounded, DashboardRounded, EqualizerRounded, HomeRounded, ModeComm
 import React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
+import logo from '../../../assets/images/logo.png'
 
 const Sidebar = ({ toggle, setToggle, isCompany }) => {
 
@@ -11,7 +12,8 @@ const Sidebar = ({ toggle, setToggle, isCompany }) => {
     return (
         <div className={!toggle?"sidebar__Wrapper sidebar__NavbarToggle":"sidebar__Wrapper"}>
             <div className="sidebar__Logo">
-                <h4>Neuro.</h4>
+                <img src={logo} alt="logo" height={35}/>
+                <h4>InfloByte</h4>
             </div>
             <div className="sidebar__Menu">
                 <ul>

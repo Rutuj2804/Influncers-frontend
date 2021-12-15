@@ -9,9 +9,16 @@
     transition: 0.2s transform linear;
     .sidebar__Logo{
         width: 100%;
-        padding: 20px;
-        margin-top: 30px;
+        padding: 20px 10px;
+        margin-top: 40px;
+        padding-right: 10px;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h4{
+            margin: 0;
+        }
     }
     .sidebar__CloseIcon{
         position: absolute;
