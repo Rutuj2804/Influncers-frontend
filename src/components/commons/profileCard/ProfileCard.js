@@ -3,7 +3,7 @@ import { Close } from '@material-ui/icons'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-const ProfileCard = ({ full_name, place, username, online, skills, photo }) => {
+const ProfileCard = ({ full_name, place, username, online, skills, photo, isCompany }) => {
 
     const history = useHistory()
 
@@ -18,7 +18,7 @@ const ProfileCard = ({ full_name, place, username, online, skills, photo }) => {
                 <div className="profileCard__UserSide" onClick={()=>history.push(`/c/@${username}`)} >
                     <Avatar src={photo} />
                     <div className="profileCard__UserDetails">
-                        <h6>{full_name}</h6>
+                        <h6>{full_name}{isCompany ?<p>C</p>:null}</h6>
                         <p>{place}<div className={online?"profileCard__Online":"profileCard__Offline"}></div></p>
                     </div>
                 </div>

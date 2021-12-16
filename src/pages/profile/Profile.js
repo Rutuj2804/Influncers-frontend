@@ -28,7 +28,7 @@ const Profile = ({ user_from_state, load_user }) => {
                             <div className="profile__ProfileImage">
                                 <img src={user_from_state.photo ? process.env.REACT_APP_API_URL + user_from_state.photo : user} alt="profile" />
                                 <div className="profile__NameAndCity">
-                                    <h4>{user_from_state.first_name + ' ' + user_from_state.last_name}</h4>
+                                    <h4>{user_from_state.first_name + ' ' + user_from_state.last_name}{user_from_state.isCompany?<p>c</p>:null}</h4>
                                     <p>{user_from_state.city}, {user_from_state.state}</p>
                                 </div>
                             </div>

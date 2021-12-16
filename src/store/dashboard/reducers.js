@@ -7,6 +7,7 @@ import {
     FETCH_MY_RECENT_LISTINGS_FAIL,
     CREATE_LISTINGS_SUCCESS,
     CREATE_LISTINGS_FAIL,
+    REMOVE_MESSAGES_SUCCESS,
 
     FETCH_DASHBOARD_ANALTYICS_SUCCESS,
     FETCH_DASHBOARD_ANALTYICS_FAIL
@@ -60,6 +61,12 @@ const Dashboard = (state= initialState, actions ) => {
             return {
                 ...state,
                 recent_listings: payload
+            }
+        case REMOVE_MESSAGES_SUCCESS:
+            return {
+                ...state,
+                error: '',
+                success: ''
             }
         case FETCH_MY_RECENT_LISTINGS_FAIL:
         case FETCH_DASHBOARD_ANALTYICS_FAIL:

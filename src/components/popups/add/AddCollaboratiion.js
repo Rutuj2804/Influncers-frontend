@@ -2,12 +2,12 @@ import { Button, IconButton } from '@material-ui/core'
 import { AssignmentIndRounded, CloseRounded, DescriptionRounded, TitleRounded, TrackChanges, CheckRounded } from '@material-ui/icons'
 import React, { useEffect, useRef, useState } from 'react'
 import Input from '../../commons/input/Input'
-import { create_project } from '../../../store/actions.js'
+import { create_project, remove_messages_from_dashboard } from '../../../store/actions.js'
 import { connect } from 'react-redux'
 import SuccessPopup from '../success/SuccessPopup'
 import ErrorPopup from '../error/ErrorPopup'
 
-const AddCollaboratiion = ({ setCollaborationPopup, create_project, success_from_state, error_from_state }) => {
+const AddCollaboratiion = ({ setCollaborationPopup, create_project, success_from_state, error_from_state, remove_messages_from_dashboard }) => {
 
     const [ formData, setFormData ] = useState({
         title: '',
@@ -104,9 +104,26 @@ const AddCollaboratiion = ({ setCollaborationPopup, create_project, success_from
     const handleSubmit = e => {
         e.preventDefault()
         create_project(title, description, type, skills, place, money, works, rewards, target, currency, position)
+        setFormData({
+            title: '',
+            description: '',
+            place: '',
+            money: '',
+            currency: 'INR',
+            type: 'project',
+            target: '',
+            position: '',
+            skills: [],
+            skill_name: '',
+            works: [],
+            work_name: '',
+            rewards: [],
+            reward_name: '',
+        })
     }
 
     const continueFun = () => {
+        remove_messages_from_dashboard()
         setCollaborationPopup(false)
     }
 
@@ -219,9 +236,7 @@ const AddCollaboratiion = ({ setCollaborationPopup, create_project, success_from
                                 <div className="addCollaboration__InputDiv">
                                     <label><DescriptionRounded fontSize="small" /></label>
                                     <select value={currency} onChange={e=>handleInputChange(e)} name="currency" >
-                                        <option>INR</option>
                                         <option>USD</option>
-                                        <option>FRK</option>
                                     </select>
                                 </div>
                                 <div className="addCollaboration__InputDiv">
@@ -306,4 +321,4 @@ const mapStateToProps = state => ({
     error_from_state: state.Dashboard.error,
 })
 
-export default connect(mapStateToProps, { create_project })(AddCollaboratiion)
+export default connect(mapStateToProps, { create_project, remove_messages_from_dashboard })(AddCollaboratiion)

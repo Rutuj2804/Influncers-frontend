@@ -9,7 +9,8 @@ import {
     FETCH_DASHBOARD_ANALTYICS_SUCCESS,
     FETCH_DASHBOARD_ANALTYICS_FAIL,
     FETCH_MY_RECENT_LISTINGS_FAIL,
-    FETCH_MY_RECENT_LISTINGS_SUCCESS
+    FETCH_MY_RECENT_LISTINGS_SUCCESS,
+    REMOVE_MESSAGES_SUCCESS
 } from './types'
 import axios from 'axios'
 import { loading_starts, loading_stops } from '../loading/actions'
@@ -202,3 +203,11 @@ export const create_project = (title, description, type, requirements, place, mo
     dispatch(loading_stops())
 
 }
+
+export const remove_messages_from_dashboard = () => async dispatch => {
+    console.log('here 2');
+        dispatch({
+            type: REMOVE_MESSAGES_SUCCESS
+        })
+}
+

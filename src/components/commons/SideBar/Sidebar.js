@@ -1,13 +1,11 @@
 import { IconButton } from '@material-ui/core'
 import { CloseRounded, DashboardRounded, EqualizerRounded, HomeRounded, ModeCommentRounded, PeopleRounded, SettingsRounded } from '@material-ui/icons'
 import React from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import logo from '../../../assets/images/logo.png'
 
 const Sidebar = ({ toggle, setToggle, isCompany }) => {
-
-    const history = useHistory()
 
     return (
         <div className={!toggle?"sidebar__Wrapper sidebar__NavbarToggle":"sidebar__Wrapper"}>
@@ -25,11 +23,11 @@ const Sidebar = ({ toggle, setToggle, isCompany }) => {
                     <NavLink to="/settings" activeClassName="sidebar__NavigationActive"><li><SettingsRounded fontSize="small" /> <p>Settings</p></li></NavLink>
                 </ul>
             </div>
-            <div className="sidebar__Footer" onClick={()=>history.push('/help')} >
+            {/* <div className="sidebar__Footer" onClick={()=>history.push('/help')} >
                 <div className="sideBar__Create">
                     <h6>Create</h6>
                 </div>
-            </div>
+            </div> */}
             <div  className="sidebar__CloseIcon" ><IconButton onClick={()=>setToggle(false)}><CloseRounded fontSize="small" /></IconButton></div>
         </div>
     )

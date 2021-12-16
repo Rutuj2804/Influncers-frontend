@@ -80,6 +80,7 @@ const FindPeople = ({ users, listings, search_database }) => {
                                                 online={val.online}
                                                 skills={val.skills}
                                                 photo={`${process.env.REACT_APP_API_URL}${val.photo}`}
+                                                isCompany={val.isCompany}
                                             />
                                 })}
                             </div>
@@ -122,6 +123,7 @@ const FindPeople = ({ users, listings, search_database }) => {
                                                 online={val.online}
                                                 skills={val.skills}
                                                 photo={`${process.env.REACT_APP_API_URL}${val.photo}`}
+                                                isCompany={val.isCompany}
                                             />
                                         </div>
                             })}
